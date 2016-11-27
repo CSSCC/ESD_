@@ -10,7 +10,7 @@ package model;
  * @author RickyL
  */
 public class Member {
-    
+  //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX  
   private String id;
     private String password;
     private String status;
