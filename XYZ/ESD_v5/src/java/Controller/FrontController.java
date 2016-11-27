@@ -1,6 +1,8 @@
 package Controller;
 
+import Models.Pages;
 import java.io.IOException;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -33,7 +35,7 @@ public class FrontController extends HttpServlet {
         if (username.equals("admin")) {
             page = "/WEB-INF/docs/mainAdmin.jsp";
         } else {
-            page = "/WEB-INF/docs/mainPage.jsp";
+            page = "/WEB-INF/docs/mainCustomer.jsp";
         }
         //if id equals " " include specific jsp
         String include = "";
@@ -42,9 +44,30 @@ public class FrontController extends HttpServlet {
             include = "checkLoginDetails.jsp";
         }
 
-        getServletContext().log("Front received a request for " + id);
-        request.setAttribute("doco", include);
-        request.getRequestDispatcher(page).forward(request, response);
+        String pageName;
+        Pages pagee = new Pages();   
+        
+        
+        // Gets the intended page name by stripping context path off the URI
+        String requestedPage = request.getRequestURI().replace(request.getContextPath() + "/docs", "");
+
+        // Restricted folder
+        String appendUri = "/WEB-INF/docs/";
+
+        if (!pagee.pageAllowed(requestedPage)) {
+            pageName = appendUri + "notfound.jsp";
+        } else {
+            // Page name - default to index.jsp 
+            pageName = pagee.redirect(requestedPage);
+        }
+
+      //  pageName = page.loginReroute(request, appendUri, pageName);
+
+        request.setAttribute("page", appendUri + pageName);
+
+        // Dispatches and forwards back to view
+        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/index.jsp");
+        dispatcher.forward(request, response);
 
     }
 
