@@ -10,7 +10,7 @@ package model;
  * @author RickyL
  */
 public class Member {
-  //OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+  //Hello
   private String id;
     private String password;
     private String status;
