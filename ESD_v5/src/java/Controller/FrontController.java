@@ -33,7 +33,7 @@ public class FrontController extends HttpServlet {
         if (username.equals("admin")) {
             page = "/WEB-INF/docs/mainAdmin.jsp";
         } else {
-            page = "/WEB-INF/docs/mainCustomer.jsp";
+            page = "/WEB-INF/docs/mainMember.jsp";
         }
         //if id equals " " include specific jsp
         String include = "";
@@ -47,6 +47,14 @@ public class FrontController extends HttpServlet {
             include = "listClaims.jsp";
         } else if (id.equals("/docs/listOutstandingBalances")) {
             include = "listOutstandingBalances.jsp";
+        } else if (id.equals("/docs/listProvApps")) {
+            include = "listProvApps.jsp";
+        } else if (id.equals("/docs/checkOutBalance")) {
+            include = "checkOutBalance.jsp";
+        } else if (id.equals("/docs/makePayment")) {
+            include = "makePayment.jsp"; 
+        } else if (id.equals("/docs/submitClaim")) {
+            include = "submitClaim.jsp"; 
         } else if (id.equals("/docs/listProvApps")) {
             include = "listProvApps.jsp";
         }

@@ -1,7 +1,7 @@
 <%-- 
-    Document   : listAllMembers
-    Created on : 28-Nov-2016, 19:24:54
-    Author     : ra7-lewis
+    Document   : makePayment
+    Created on : 28-Nov-2016, 21:58:20
+    Author     : t2-lings
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -9,9 +9,9 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Make a Payment!</title>
     </head>
     <body>
-        <h1>All Members</h1>
+        <h1>Press the button to pay!</h1>
     </body>
 </html>

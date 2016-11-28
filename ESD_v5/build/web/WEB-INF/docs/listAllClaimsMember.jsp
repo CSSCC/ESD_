@@ -1,7 +1,7 @@
 <%-- 
-    Document   : listAllMembers
-    Created on : 28-Nov-2016, 19:24:54
-    Author     : ra7-lewis
+    Document   : listAllClaimsMember
+    Created on : 28-Nov-2016, 22:04:12
+    Author     : t2-lings
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -9,9 +9,9 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>List All Claims and Payments to Date</title>
     </head>
     <body>
-        <h1>All Members</h1>
+        <h1>List:</h1>
     </body>
 </html>
