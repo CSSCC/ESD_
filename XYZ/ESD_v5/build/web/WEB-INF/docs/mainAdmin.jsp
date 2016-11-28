@@ -14,6 +14,7 @@
         
     </head>
     <body>
+    <jsp:include page="templates/menu.jsp" flush="true" /> <%-- displays menu --%> 
 
         You are now logged in, Admin! 
     </body>

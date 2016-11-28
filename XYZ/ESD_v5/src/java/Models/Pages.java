@@ -20,11 +20,10 @@ public class Pages {
     public Pages() {
         pages = new HashMap<String, String>();
 
-        pages.put("/login.do", "main.jsp");
+        pages.put("/login.do", "mainMember.jsp");
         // Inner site
-        pages.put("/main", "main.jsp");
-        pages.put("/index.jsp", "main.jsp");
-        pages.put("/index", "main.jsp");
+        pages.put("/index.jsp", "mainMember.jsp");
+        pages.put("/index", "mainMember.jsp");
         
         pages.put("/test", "test.jsp");
         pages.put("/loginreg", "loginreg.jsp");
