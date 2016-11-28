@@ -13,7 +13,7 @@
     </head>
     <body>
         <form action ="checkLoginDetails.jsp" method="POST">
-            Username or Password is incorrect, please log in again.<br>
+            Username or Password is incorrect, please log in again.
             Username:<input type="text" name="username"/>
             <br>
             Password:  <input type="password" name="password"/>

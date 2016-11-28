@@ -9,13 +9,27 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-       <title>XYZ Assoc</title>
+        <title>XYZ Assoc</title>
 
-        
+
     </head>
-    <body>
-    <jsp:include page="templates/menu.jsp" flush="true" /> <%-- displays menu --%> 
+    <body>       
 
-        You are now logged in, Admin! 
+        You are now logged in as Admin! 
+
+        <div id ="nav">
+
+            <a href="<%=request.getContextPath()%>/docs/index">Home</a><br>
+            <a href="<%=request.getContextPath()%>/docs/listAllMembers">List Members</a><br>
+            <a href="<%=request.getContextPath()%>/docs/listOutstandingBalances">List Outstanding Balances</a><br>
+            <a href="<%=request.getContextPath()%>/docs/listClaims">List Claims</a><br>
+            <a href="<%=request.getContextPath()%>/docs/listProvApps">List Prov Apps</a><br>
+
+            <a href="<%=request.getContextPath()%>/">Logout</a>
+        </div> 
+
+        <div id ="section">
+            <jsp:include page="${doco}" flush="true"/>
+        </div>
     </body>
 </html>
