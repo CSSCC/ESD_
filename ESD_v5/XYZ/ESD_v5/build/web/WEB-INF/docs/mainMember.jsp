@@ -15,6 +15,20 @@
     </head>
     <body>
 
-        You are now logged in! 
+        You are now logged in as a member!                                                            
+        <div id ="nav">
+
+            <a href="<%=request.getContextPath()%>/docs/index">Home</a><br>
+            <a href="<%=request.getContextPath()%>/docs/checkOutBalance">Check for Outstanding Balance</a><br>
+            <a href="<%=request.getContextPath()%>/docs/makePayment">Make a payment</a><br>
+            <a href="<%=request.getContextPath()%>/docs/submitClaim">Submit a Claim</a><br>
+            <a href="<%=request.getContextPath()%>/docs/listProvApps">List All Claims and Payments to Date</a><br>
+
+            <a href="<%=request.getContextPath()%>/">Logout</a>
+        </div> 
+        
+        <div id ="section">
+            <jsp:include page="${doco}" flush="true"/>
+        </div>
     </body>
 </html>
