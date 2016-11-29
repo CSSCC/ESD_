@@ -27,7 +27,7 @@ public class FrontController extends HttpServlet {
         String id = request.getRequestURI().substring(request.getContextPath().length());
         String page = "/WEB-INF/docs/mainMember.jsp";
         HttpSession session = request.getSession(true);
-        String username = (String) request.getAttribute("username");
+        String username = (String) session.getAttribute("username");
 
         if(id != "RegistrationController"){
         //if user is admin display main else mainPage
