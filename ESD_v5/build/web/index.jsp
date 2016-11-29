@@ -28,17 +28,11 @@
         
          <form action ="${pageContext.request.contextPath}/RegistrationController" method="post">
             <h3>Register.</h3>
-            Username:<input type="text" name="username" />
-            <br>
             Name  <input type="text" name="name" />
-            </br>
-            Password:  <input type="password" name="password" />
             </br>
             Address:  <input type="text" name="address" />
             </br>
             DOB  <input type="date" name="dob" />
-            </br>
-            DOR  <input type="date" name="dor" />
             </br>
             <input type="submit" />
             <input type="reset" />
