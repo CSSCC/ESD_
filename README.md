@@ -15,7 +15,9 @@ Admin page
    - Suspend/resume membership
    - report annual turnover
 
+
 How to Git
+
 1.	Open Git Cmd
 
 2.	Cd into file where you want to clone repository
