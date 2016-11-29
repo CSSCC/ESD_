@@ -16,6 +16,8 @@ public class Claim {
     int claimSize;
 
     public Claim() throws SQLException {
+        
+        //Checks values of variables after querying database
         id = Jdbc.runQuery("SELECT * FROM claims", "id");
         
         mem_id = Jdbc.runQuery("SELECT * FROM claims", "mem_id");
@@ -31,7 +33,7 @@ public class Claim {
         claimSize = id.size();
     }
 
-    
+    // getters and setters for the claim class
     public String getId(int index) throws SQLException {
 
         id = Jdbc.runQuery("SELECT * FROM claims", "id");

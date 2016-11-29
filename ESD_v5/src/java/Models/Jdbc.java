@@ -15,10 +15,6 @@ public class Jdbc {
     private static Connection con = null;
     private Statement statement = null;
     private ResultSet resultSet = null;
-
- 
-    
-    
     
 
   public Jdbc()
@@ -26,10 +22,6 @@ public class Jdbc {
     
   }
 
-    
-    
-    
-    
     
     public void setSqlStatement(String sqlStatement) {
         this.sqlStatement = sqlStatement;

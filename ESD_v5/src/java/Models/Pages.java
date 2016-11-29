@@ -15,13 +15,12 @@ import javax.servlet.http.HttpSession;
  */
 public class Pages {
 
-    HashMap<String, String> pages;
+    HashMap<String, String> pages;     //creates 2 column hash map of string data type
 
     public Pages() {
         pages = new HashMap<String, String>();
 
         pages.put("/login.do", "mainMember.jsp");
-        // Inner site
         pages.put("/index.jsp", "mainMember.jsp");
         pages.put("/index", "mainMember.jsp");
         

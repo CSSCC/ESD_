@@ -16,6 +16,8 @@ public class Member {
     int memberSize;
 
     public Member() throws SQLException {
+        
+        //Checks values of variables after querying database
         id = Jdbc.runQuery("SELECT * FROM members", "id");
         
         name = Jdbc.runQuery("SELECT * FROM members", "name");
@@ -34,7 +36,7 @@ public class Member {
         memberSize = id.size();
     }
 
-    
+    // getters and setters for the member class
     public String getId(int index) throws SQLException {
 
         id = Jdbc.runQuery("SELECT * FROM members", "id");

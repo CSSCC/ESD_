@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author RickyL
+ * @author CSSCC
  */
 public class Login {
    
@@ -13,12 +13,14 @@ public class Login {
     ArrayList<String> Password;
 
     public Login() throws SQLException { 
+        
+        //Checks values of variables after querying database
         Username = Jdbc.runQuery("SELECT * FROM users", "id");
         
         Password = Jdbc.runQuery("SELECT * FROM users", "password");
   
     }
-//get username
+    //get username
     public ArrayList<String> getUsername() {
         return Username;
     }
