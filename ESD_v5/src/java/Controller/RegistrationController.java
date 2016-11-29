@@ -41,24 +41,60 @@ public class RegistrationController extends HttpServlet {
         
         Jdbc Jbean = new Jdbc();
         
-            String username = request.getParameter("username");
-            String name = request.getParameter("name");
-            String address = request.getParameter("address");
-            String password = request.getParameter("password");
-            String dob = request.getParameter("dob");
-            String dor = request.getParameter("dor");
-            String status = "APPLIED";
-            String balance = "10";
+        String username;
+        String name = request.getParameter("name");
+        String address = request.getParameter("address");
+        String password = "";
+        String dob = request.getParameter("dob");
+        String dor = request.getParameter("dor");
+        String status = "APPLIED";
+        String balance = "10";
+        
+        //****************MAKING USERNAME*******************
+        //Initialising
+        char firstChar;
+        username = "";
+        String[] str1 = new String[2];
+        
+        //Getting first char of first name
+        firstChar = name.charAt(0);
+        username = username + firstChar;
+        
+        //Splitting Name to retrieve surname
+        str1 = name.split(" ");
+        username = username + "-" + str1[(str1.length) - 1];
+        
+        //Changing username to lower case
+        username = username.toLowerCase();
+        
+        //******************MAKING PASSWORD*********************
+        
+        //Initialising
+        String[] str2 = new String[3];
+        
+        //Splitting into temporary String array
+        str2 = dob.split("-");
+        
+        //Discarding the first to digits of year of birth
+        String temp = "";                   
+        temp = temp + str2[0].charAt(2) + str2[0].charAt(3);
+        str2[0] = temp;
+        
+        //building password from temp array
+        for(int i=(str2.length - 1);i>=0;i--){     
+            password = password + str2[i];
+        }
+        
 
-            Jbean.executeSQLUpdate("INSERT INTO members (id, name, address, dob, dor, status, balance) VALUES ('" + username + "', '" + name + "', '" + address + "', '" + dob + "', '" + dor + "', '" + status + "', '" + balance + "')");
-            
-            Jbean.executeSQLUpdate("INSERT INTO users (id, password, status) VALUES ('" + username + "', '" + password + "', '" + status + "')");
+        Jbean.executeSQLUpdate("INSERT INTO members (id, name, address, dob, dor, status, balance) VALUES ('" + username + "', '" + name + "', '" + address + "', '" + dob + "', '" + dor + "', '" + status + "', '" + balance + "')");
 
-            request.setAttribute("username", username);
-            request.setAttribute("password", password);
-            String nextJSP = "/docs/mainMember.jsp";
-            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextJSP);
-            dispatcher.forward(request,response);
+        Jbean.executeSQLUpdate("INSERT INTO users (id, password, status) VALUES ('" + username + "', '" + password + "', '" + status + "')");
+
+        request.setAttribute("username", username);
+        request.setAttribute("password", password);
+        String nextJSP = "/docs/mainMember.jsp";
+        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextJSP);
+        dispatcher.forward(request,response);
         
     }
 
