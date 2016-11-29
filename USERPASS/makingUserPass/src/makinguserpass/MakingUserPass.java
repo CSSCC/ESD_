@@ -42,7 +42,7 @@ public class MakingUserPass {
         //******************MAKING PASSWORD*********************
         
         //Initialising
-        String testDOB = "02-12-1968";
+        String testDOB = "1968-11-22";
         String pass = "";
         String[] str2 = new String[3];
         
@@ -51,11 +51,11 @@ public class MakingUserPass {
         
         //Discarding the first to digits of year of birth
         String temp = "";                   
-        temp = temp + str2[2].charAt(2) + str2[2].charAt(3);
-        str2[2] = temp;
+        temp = temp + str2[0].charAt(2) + str2[0].charAt(3);
+        str2[0] = temp;
         
         //building password from temp array
-        for(int i=0;i<str2.length;i++){     
+        for(int i=(str2.length - 1);i>=0;i--){     
             pass = pass + str2[i];
         }
         

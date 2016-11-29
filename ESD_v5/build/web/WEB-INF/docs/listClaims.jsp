@@ -11,8 +11,8 @@
     <body>
         <h1>Claims</h1> 
     <center> 
-         <table>
-               <tr>
+        <table>
+                <tr>
                    <th>ID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
                    <th>Date&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
                    <th>Rationale&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
