@@ -7,16 +7,34 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author PickyRickyL
+ * @author RickyL
  */
 public class Jdbc {
 
+    private String sqlStatement = null;
     private static Connection con = null;
+    private Statement statement = null;
+    private ResultSet resultSet = null;
 
-    static void runQuery(String select__into_journey_FROM_customers) {
-        throw new UnsupportedOperationException("Not supported yet.");
+ 
+    
+    
+    
+
+  public Jdbc()
+  {
+    
+  }
+
+    
+    
+    
+    
+    
+    public void setSqlStatement(String sqlStatement) {
+        this.sqlStatement = sqlStatement;
     }
-
+    
     //create connection to database
     public Connection makeConnection(String url) {
         if (con != null) {
@@ -37,34 +55,55 @@ public class Jdbc {
         }
         return con;
     }
-
     //close connection
-    public static void closeConnection(Connection c) {
-        try {
-            c.close();
-        } catch (SQLException ex) {
+    public static void closeConnection(Connection c){
+        try{
+             c.close();
+        }
+        catch(SQLException ex){
             Logger.getLogger(Jdbc.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+       
     }
-
     //database run query
-    public static ArrayList runQuery(String query, String column) throws SQLException {
-        ArrayList al = new ArrayList();
-        Statement st = con.createStatement();
-        ResultSet rs = st.executeQuery(query);
+    public static ArrayList runQuery(String query, String column) throws SQLException{
+      ArrayList al = new ArrayList();
+       Statement st = con.createStatement();
+       ResultSet rs = st.executeQuery(query);
         while (rs.next()) {
-            al.add(rs.getString(column));
+                al.add(rs.getString(column));
         }
-        return al;
-
+        return al;   
+        
     }
+    
+     public void executeSQLUpdate(String sqlStatement) {
 
+        //Set SQL statement
+        if (this.sqlStatement == null) {
+            setSqlStatement(sqlStatement);
+        }
+        System.out.println("Executing SQL Statement:");
+        System.out.println(sqlStatement + "\n");
+        //Execute SQL query
+        try {
+            //Create statment
+            statement = con.createStatement();
+            //Execute update
+            statement.executeUpdate(sqlStatement);
+            System.out.println("SQL Update Successful.\n");
+
+        } catch (SQLException e) {
+            System.out.println("SQL Statement Not Executed...\n" + e.toString() + "\n");
+        }
+    }
+     
     //database run update
-    public static void runUpdate(String update) throws SQLException {
+    public static void runUpdate(String update) throws SQLException{
         Statement st = con.createStatement();
-        st.executeUpdate(update);
-
+        st.executeUpdate(update);     
+        
     }
-
+    
+    
 }

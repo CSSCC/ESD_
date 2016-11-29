@@ -13,5 +13,8 @@
     </head>
     <body>
         <h1>Check Outstanding Balance</h1>
+        <% String username = (String) request.getAttribute("user");
+                    out.print(username);
+                %>
     </body>
 </html>

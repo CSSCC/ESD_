@@ -4,33 +4,34 @@ import Models.Jdbc;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class Claims {
-
+public class Claim {
+    
     ArrayList<String> id;
-    ArrayList<String> memId;    //mem_id in database
+    ArrayList<String> mem_id;
     ArrayList<String> date;
     ArrayList<String> rationale;
     ArrayList<String> status;
     ArrayList<String> amount;
+    
+    int claimSize;
 
-    int claimsSize;
-
-    public Claims() throws SQLException {
+    public Claim() throws SQLException {
         id = Jdbc.runQuery("SELECT * FROM claims", "id");
-
-        memId = Jdbc.runQuery("SELECT * FROM claims", "mem_id");
-
+        
+        mem_id = Jdbc.runQuery("SELECT * FROM claims", "mem_id");
+        
         date = Jdbc.runQuery("SELECT * FROM claims", "date");
 
         rationale = Jdbc.runQuery("SELECT * FROM claims", "rationale");
 
         status = Jdbc.runQuery("SELECT * FROM claims", "status");
-
-        amount = Jdbc.runQuery("SELECT * FROM claims", "amount");
-
-        claimsSize = id.size();
+        
+        amount = Jdbc.runQuery("SELECT * FROM claims", "amount");      
+        
+        claimSize = id.size();
     }
 
+    
     public String getId(int index) throws SQLException {
 
         id = Jdbc.runQuery("SELECT * FROM claims", "id");
@@ -38,13 +39,13 @@ public class Claims {
 
         return individual_id;
     }
-
+    
     public String getMemId(int index) throws SQLException {
 
-        memId = Jdbc.runQuery("SELECT * FROM claims", "mem_id");
-        String individual_memId = memId.get(index);
+        mem_id = Jdbc.runQuery("SELECT * FROM claims", " mem_id");
+        String individual_mem_id =  mem_id.get(index);
 
-        return individual_memId;
+        return individual_mem_id;
     }
 
     public String getDate(int index) throws SQLException {
@@ -62,7 +63,7 @@ public class Claims {
 
         return individual_rationale;
     }
-
+    
     public String getStatus(int index) throws SQLException {
 
         status = Jdbc.runQuery("SELECT * FROM claims", "status");
@@ -70,7 +71,7 @@ public class Claims {
 
         return individual_status;
     }
-
+    
     public String getAmount(int index) throws SQLException {
 
         amount = Jdbc.runQuery("SELECT * FROM claims", "amount");
@@ -78,7 +79,8 @@ public class Claims {
 
         return individual_amount;
     }
-
+    
+    
     public int getClaimsSize() throws SQLException {
         id = Jdbc.runQuery("SELECT * FROM claims", "id");
         return this.id.size();

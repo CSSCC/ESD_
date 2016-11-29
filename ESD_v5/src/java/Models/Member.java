@@ -90,7 +90,7 @@ public class Member {
 
         return individual_balance;
     }
-    
+        
     public int getMembersSize() throws SQLException {
         id = Jdbc.runQuery("SELECT * FROM members", "id");
         return this.id.size();

@@ -17,6 +17,14 @@
         <url-pattern>/docs/*</url-pattern>
         <url-pattern>/Front</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>RegistrationController</servlet-name>
+        <servlet-class>Controller.RegistrationController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>RegistrationController</servlet-name>
+        <url-pattern>/RegistrationController</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>10</session-timeout>
     </session-config>

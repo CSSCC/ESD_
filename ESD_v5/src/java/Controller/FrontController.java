@@ -25,13 +25,17 @@ public class FrontController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String id = request.getRequestURI().substring(request.getContextPath().length());
-        String page = "/WEB-INF/docs/main.jsp";
+        String page = "/WEB-INF/docs/mainMember.jsp";
         HttpSession session = request.getSession(true);
-        String username = (String) session.getAttribute("username");
+        String username = (String) request.getAttribute("username");
 
+        if(id != "RegistrationController"){
         //if user is admin display main else mainPage
         if (username.equals("admin")) {
             page = "/WEB-INF/docs/mainAdmin.jsp";
+        } else {
+            page = "/WEB-INF/docs/mainMember.jsp";
+        }
         } else {
             page = "/WEB-INF/docs/mainMember.jsp";
         }
@@ -58,9 +62,9 @@ public class FrontController extends HttpServlet {
         } else if (id.equals("/docs/listProvApps")) {
             include = "listProvApps.jsp";
         }
-        
         getServletContext().log("Front received a request for " + id);
         request.setAttribute("doco", include);
+        request.setAttribute("user", username);
         request.getRequestDispatcher(page).forward(request, response);
 
     }
