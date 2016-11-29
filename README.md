@@ -9,7 +9,7 @@ Members page
 Admin page
    - List all members ✓
    - List oustanding balances ✓
-   - List claims 
+   - List claims ✓
    - List provisional member applications (havent paid membership)
    - Process upgrade when payment made
    - Suspend/resume membership
