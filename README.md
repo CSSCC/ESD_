@@ -5,6 +5,7 @@ Members page
    - payment/balance 
    - submit a claim
    - history of payments/claims
+   
 Admin page
    - List all members ✓
    - List oustanding balances ✓
