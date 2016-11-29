@@ -46,7 +46,7 @@ public class RegistrationController extends HttpServlet {
         String address = request.getParameter("address");
         String password = "";
         String dob = request.getParameter("dob");
-        String dor = request.getParameter("dor");
+        String dor = request.getParameter("dob"); //CHNAGE TO CURRENT DATE
         String status = "APPLIED";
         String balance = "10";
         
@@ -90,9 +90,9 @@ public class RegistrationController extends HttpServlet {
 
         Jbean.executeSQLUpdate("INSERT INTO users (id, password, status) VALUES ('" + username + "', '" + password + "', '" + status + "')");
 
-        request.setAttribute("username", username);
+        request.setAttribute("user", username);
         request.setAttribute("password", password);
-        String nextJSP = "/docs/mainMember.jsp";
+        String nextJSP = "/index.jsp";
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextJSP);
         dispatcher.forward(request,response);
         

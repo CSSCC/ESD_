@@ -4,6 +4,7 @@
     Author     : ra7-lewis
 --%>
 
+<%@page import="Models.Member"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -12,6 +13,14 @@
         <title>JSP Page</title>
     </head>
     <body>
+          <table>
+               <tr>
+                   <th>Balance&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+               </tr>
+               
         <h1>All Outstanding Balances</h1>
+        
+        
+               </table>
     </body>
 </html>
