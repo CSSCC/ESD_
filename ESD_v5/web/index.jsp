@@ -28,20 +28,20 @@
         
          <form action ="${pageContext.request.contextPath}/RegistrationController" method="post">
             <h3>Register.</h3>
-            Username:<input type="text" name="username" value="r-fellow"/>
+            Username:<input type="text" name="username" />
             <br>
-            Name  <input type="text" name="name" value="Ryan Fellow"/>
+            Name  <input type="text" name="name" />
             </br>
-            Password:  <input type="password" name="password" value="12345"/>
+            Password:  <input type="password" name="password" />
             </br>
-            Address:  <input type="text" name="address" value="88 test house, test road, test village"/>
+            Address:  <input type="text" name="address" />
             </br>
-            DOB  <input type="date" name="dob" value="27-03-1993"/>
+            DOB  <input type="date" name="dob" />
             </br>
-            DOR  <input type="date" name="dor" value="29-11-2016"/>
+            DOR  <input type="date" name="dor" />
             </br>
-            <input type="submit" value="Register"/>
-            <input type="reset" value="reset"/>
+            <input type="submit" />
+            <input type="reset" />
                  </br>     </br>
         </form>
 </body>
