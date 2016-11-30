@@ -14,13 +14,17 @@
     </head>
     <body>
         <h1>Check Outstanding Balance</h1>
+        <table>
+               <tr>
+                   <th>ID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                   <th>Current Balance&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+        
         <%
                 Member memb = new Member();
                 int balance = 0;
                 String username = (String) request.getAttribute("user");
                 String user = ""; 
                 
-                out.print(username);
                 for (int i = 0; i < memb.getMembersSize(); i++) {
                     balance = Integer.parseInt(memb.getBalance(i));
                     user = memb.getId(i);
@@ -31,10 +35,19 @@
                         out.println("<td>"
                     
                                 + memb.getId(i) + " </td><td>" 
-                                + memb.getBalance(i) + " </td><td>");
+                                + memb.getBalance(i) + " DR </td><td>");
                    }
                 
                 }
-            %>
+            %>               
+            </table>
+            <h1>Make a Payment</h1>
+            <form action ="checkLoginDetails.jsp" method="post">
+            Payment Amount<input type="text" name="amount"/>
+            <br>
+            <input type="submit"/>
+            
+            
+        </form>
     </body>
 </html>

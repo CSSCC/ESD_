@@ -12,6 +12,10 @@
         <servlet-name>Front</servlet-name>
         <servlet-class>Controller.FrontController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>MemberController</servlet-name>
+        <servlet-class>Controller.MemberController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Front</servlet-name>
         <url-pattern>/docs/*</url-pattern>
@@ -24,6 +28,10 @@
     <servlet-mapping>
         <servlet-name>RegistrationController</servlet-name>
         <url-pattern>/RegistrationController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MemberController</servlet-name>
+        <url-pattern>/MemberController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>10</session-timeout>
