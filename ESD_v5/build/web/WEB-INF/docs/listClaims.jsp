@@ -33,13 +33,13 @@
        
          
            
-         for (int i = 0; i < claim.getClaimsSize(); i++) {
+         for (int i = 0; i < claim.getClaimsSize()+1; i++) {
          
          
                  out.println("<tr>");
                  out.println("<td>" 
                          + claim.getId(i) + " </td><td> "
-                         + memb.getId(i) + " </td><td> "
+                         + claim.getMemId(i) + " </td><td> "
                          + claim.getDate(i) + " </td><td> "
                          + claim.getRationale(i) + " </td><td> "
                          + claim.getStatus(i) + " </td><td> " 

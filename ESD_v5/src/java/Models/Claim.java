@@ -44,7 +44,7 @@ public class Claim {
     
     public String getMemId(int index) throws SQLException {
 
-        memId = Jdbc.runQuery("SELECT * FROM claims", " mem_id");
+        memId = Jdbc.runQuery("SELECT * FROM claims", "mem_id");
         String individual_memId =  memId.get(index);
 
         return individual_memId;

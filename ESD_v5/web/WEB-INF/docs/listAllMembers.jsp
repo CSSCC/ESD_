@@ -29,7 +29,7 @@
          int balance = 0;
            
          for (int i = 0; i < memb.getMembersSize(); i++) {
-             balance = Integer.parseInt(memb.getBalance(i));
+             
              
                  out.println("<tr>");
                  out.println("<td>" 

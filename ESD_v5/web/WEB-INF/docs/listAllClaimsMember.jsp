@@ -1,8 +1,5 @@
-<%-- 
-    Document   : listAllClaimsMember
-    Created on : 28-Nov-2016, 22:04:12
-    Author     : t2-lings
---%>
+
+<%@page import="Models.Payment"%>
 <%@page import="Models.Member"%>
 <%@page import="Models.Claim"%>
 <%@page import="Models.Users"%>
@@ -28,24 +25,29 @@
                <%
          Claim claim = new Claim();
          Member memb = new Member();
-         
+         String user =  (String) request.getAttribute("user");
        
          
            
          for (int i = 0; i < claim.getClaimsSize(); i++) {
          
-         
-                 out.println("<tr>");
-                 out.println("<td>" 
-                         + claim.getId(i) + " </td><td> "
-                         + memb.getId(i) + " </td><td> "
-                         + claim.getDate(i) + " </td><td> "
-                         + claim.getRationale(i) + " </td><td> "
-                         + claim.getStatus(i) + " </td><td> " 
-                         + claim.getAmount(i) + " </td><td> " );
-                         
+                if(user.equals(claim.getMemId(i))){
+                    out.println("<tr>");
+                    out.println("<td>" 
+                            + claim.getId(i) + "</td><td>"
+                            + claim.getMemId(i) + "</td><td>"
+                            + claim.getDate(i) + "</td><td>"
+                            + claim.getRationale(i) + "</td><td>"
+                            + claim.getStatus(i) + "</td><td>" 
+                            + claim.getAmount(i) + "</td><td>" );
+                }         
                         
              }
+         
+          
+
          %>
+         
+         
     </body>
 </html>
