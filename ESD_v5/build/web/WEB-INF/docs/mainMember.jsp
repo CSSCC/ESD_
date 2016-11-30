@@ -14,13 +14,15 @@
         
     </head>
     <body>
-
-        You are now logged in as a member!                                                            
+        <%
+        String username = (String) request.getAttribute("user");
+        out.print("Welcome, " + username + "!"); 
+        %>
+        <br><br>
         <div id ="nav">
 
             <a href="<%=request.getContextPath()%>/docs/index">Home</a><br>
-            <a href="<%=request.getContextPath()%>/docs/checkOutBalance">Check for Outstanding Balance</a><br>
-            <a href="<%=request.getContextPath()%>/docs/makePayment">Make a payment</a><br>
+            <a href="<%=request.getContextPath()%>/docs/checkOutBalance">Outstanding Balance & Payment</a><br>
             <a href="<%=request.getContextPath()%>/docs/submitClaim">Submit a Claim</a><br>
             <a href="<%=request.getContextPath()%>/docs/listAllClaimsMember">List All Claims and Payments to Date</a><br>
 

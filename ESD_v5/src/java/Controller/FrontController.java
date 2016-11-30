@@ -29,44 +29,56 @@ public class FrontController extends HttpServlet {
         HttpSession session = request.getSession(true);
         String username = (String) session.getAttribute("username");
 
-        if(id != "RegistrationController"){
-        //if user is admin display main else mainPage
-        if (username.equals("admin")) {
-            page = "/WEB-INF/docs/mainAdmin.jsp";
-        } else {
-            page = "/WEB-INF/docs/mainMember.jsp";
-        }
+        if (id != "RegistrationController") {
+            //if user is admin display main else mainPage
+            if (username.equals("admin")) {
+                page = "/WEB-INF/docs/mainAdmin.jsp";
+            } else {
+                page = "/WEB-INF/docs/mainMember.jsp";
+            }
         } else {
             page = "/WEB-INF/docs/mainMember.jsp";
         }
         //if id equals " " include specific jsp
         String include = "";
-        if (id.equals("/Front")) {
-            include = "loginPage.jsp";
-        } else if (id.equals("/docs/index")) {
-            include = "index.jsp";
-        } else if (id.equals("/docs/listAllMembers")) {
-            include = "listAllMembers.jsp";
-        } else if (id.equals("/docs/listClaims")) {
-            include = "listClaims.jsp";
-        } else if (id.equals("/docs/listOutstandingBalances")) {
-            include = "listOutstandingBalances.jsp";
-        } else if (id.equals("/docs/listProvApps")) {
-            include = "listProvApps.jsp";
-        } else if (id.equals("/docs/checkOutBalance")) {
-            include = "checkOutBalance.jsp";
-        } else if (id.equals("/docs/makePayment")) {
-            include = "makePayment.jsp"; 
-        } else if (id.equals("/docs/submitClaim")) {
-            include = "submitClaim.jsp"; 
-        } else if (id.equals("/docs/paymentError")) {
-            include = "paymentError.jsp";
-        } else if (id.equals("/docs/listProvApps")) {
-            include = "listProvApps.jsp";
-        } else if (id.equals("/docs/listAllClaimsMember")) {
-            include = "listAllClaimsMember.jsp";
+       
 
+        switch (id) {
+            case "/Front":
+                include = "loginPage.jsp";
+                break;
+            case "/docs/index":
+                include = "index.jsp";
+                break;
+            case "/docs/listAllMembers":
+                include = "listAllMembers.jsp";
+                break;
+            case "/docs/listClaims":
+                include = "listClaims.jsp";
+                break;
+            case "/docs/listOutstandingBalances":
+                include = "listOutstandingBalances.jsp";
+                break;
+            case "/docs/listProvApps":
+                include = "listProvApps.jsp";
+                break;
+            case "/docs/checkOutBalance":
+                include = "checkOutBalance.jsp";
+                break;
+            case "/docs/submitClaim":
+                include = "submitClaim.jsp";
+                break;
+            case "/docs/paymentError":
+                include = "paymentError.jsp";
+                break;
+            case "/docs/listAllClaimsMember":
+                include = "listAllClaimsMember.jsp";
+                break;
+            case "/docs/mainMember":
+                include = "mainMember.jsp";
+            break;
         }
+
         getServletContext().log("Front received a request for " + id);
         request.setAttribute("doco", include);
         request.setAttribute("user", username);

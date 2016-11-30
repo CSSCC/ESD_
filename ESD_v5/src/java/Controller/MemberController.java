@@ -48,6 +48,7 @@ public class MemberController extends HttpServlet {
 
     public void updatePayment(HttpServletRequest request, Jdbc Jbean, HttpServletResponse response) throws ServletException, IOException, SQLException {
          
+        String nextJSP = "/docs/paymentError.jsp";
         Member memb = new Member();
         String username = (String) request.getSession().getAttribute("username");
         String userBalance = (String) request.getAttribute("balance");
@@ -68,12 +69,11 @@ public class MemberController extends HttpServlet {
         balance = balance - amount;
 
         if(balance < 0){
-        String nextJSP = "/paymentError.jsp";
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextJSP);
         dispatcher.forward(request, response);
         } else {
         Jbean.executeSQLUpdate("UPDATE members SET balance = '" + balance + "' WHERE ID = '" + username + "'");
-        String nextJSP = "/mainMember.jsp";
+        nextJSP = "/docs/mainMember.jsp";
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextJSP);
         dispatcher.forward(request, response);
         }
