@@ -22,14 +22,13 @@
                 <th>Balance&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
             </tr>
             <%
-                Member memb = new Member();
-                int balance = 0;
+                Member memb = new Member();                             //Used for reading from database
+                int balance = 0;                                    
                 String status = "";
-
-                for (int i = 0; i < memb.getMembersSize(); i++) {
-                    balance = Integer.parseInt(memb.getBalance(i));
-                    status = memb.getStatus(i);
-                    if ("APPLIED".equals(status)) {
+                for (int i = 0; i < memb.getMembersSize(); i++) {       //Loops for every database entry
+                    balance = Integer.parseInt(memb.getBalance(i));     
+                    status = memb.getStatus(i);                         //Gets value for status 
+                    if ("APPLIED".equals(status)) {                     //Checks if status is applied and outputs list if it is.
                         out.println("<tr>");
                         out.println("<td>"
                                 + memb.getId(i) + " </td><td> "

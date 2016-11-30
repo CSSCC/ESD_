@@ -24,13 +24,13 @@
 
             <h1>All Outstanding Balances</h1>
             <%
-                Member memb = new Member();
-                int balance = 0;
+                Member memb = new Member();                                 //For reading data from database    
+                int balance = 0;                                            //Initialises balance      
                 for (int i = 0; i < memb.getMembersSize(); i++) {
-                    balance = Integer.parseInt(memb.getBalance(i));
+                    balance = Integer.parseInt(memb.getBalance(i));         //Converts balance from string to int
                     
-                    if (balance != 0) {
-                        out.println("<tr>");
+                    if (balance != 0) {                                     //Checks for non-zero value of balance
+                        out.println("<tr>");                                //Output given data elements for when balance is 0
                         out.println("<td>"
                                 + memb.getName(i) + " </td><td>"
                                 + memb.getId(i) + " </td><td> "

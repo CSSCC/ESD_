@@ -13,7 +13,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>List Claims</title>
     </head>
     <body>
         <h1>Claim Response</h1>
@@ -38,6 +38,24 @@
                 <th>Status&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
                 <th>Amount&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
             </tr>
+<<<<<<< HEAD
+               <%
+                    Claim claim = new Claim();                  //For reading data from database.
+                    Member memb = new Member();                 //''
+                    
+                        for (int i = 0; i < claim.getClaimsSize()+1; i++) { //Loops for every data entry in database
+                            out.println("<tr>");
+                            out.println("<td>" 
+                            + claim.getId(i) + " </td><td> "
+                            + claim.getMemId(i) + " </td><td> "             //Prints all claims
+                            + claim.getDate(i) + " </td><td> "
+                            + claim.getRationale(i) + " </td><td> "
+                            + claim.getStatus(i) + " </td><td> " 
+                            + claim.getAmount(i) + " </td><td> " );
+                        }
+                %>
+         </table>
+=======
             <%
                 Claim claim = new Claim();
 
@@ -57,5 +75,6 @@
 
         <br>
 
+>>>>>>> ed050f9cd5df594c21ccdc7bbb86b0b5d266ecea
     </body>
 </html>
