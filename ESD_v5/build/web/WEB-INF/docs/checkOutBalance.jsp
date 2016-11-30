@@ -18,36 +18,34 @@
                <tr>
                    <th>ID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
                    <th>Current Balance&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                   <%
+                        //PRINTS USERS INFORMATION*****************
+                        Member memb = new Member();                                         //For retrieving variables through model to database.
+                        int balance = 0;                                                    //Initialises balance at 0
+                        String username = (String) request.getAttribute("user");            //Gets username currently logged in
+                        String user = "";
+
+                        for (int i = 0; i < memb.getMembersSize(); i++) {                   //loops for every row
+                            balance = Integer.parseInt(memb.getBalance(i));
+                            user = memb.getId(i);
+
+                            if (user.equals(username)) {                                    //Checks if username matches
+                                out.println("<tr>");
+                                out.println("<td>"
+                                        + memb.getId(i) + " </td><td>"                      //Prints info
+                                        + memb.getBalance(i) + " DR </td><td>");
+                                request.setAttribute("balance", memb.getBalance(i));
+                            }
+
+                        }
+                    %> 
+        </table>
         
-        <%
-                Member memb = new Member();
-                int balance = 0;
-                String username = (String) request.getAttribute("user");
-                String user = ""; 
-                
-                for (int i = 0; i < memb.getMembersSize(); i++) {
-                    balance = Integer.parseInt(memb.getBalance(i));
-                    user = memb.getId(i);
-                    
-                   
-                    if(user.equals(username)){
-                        out.println("<tr>");
-                        out.println("<td>"
-                    
-                                + memb.getId(i) + " </td><td>" 
-                                + memb.getBalance(i) + " DR </td><td>");
-                        request.setAttribute("balance", memb.getBalance(i));
-                                           }
-                
-                }
-            %>               
-            </table>
-            <h1>Make a Payment</h1>
-            <form action ="${pageContext.request.contextPath}/MemberController" method="post">
+            <h1>Make a Payment</h1>         
+        <form action ="${pageContext.request.contextPath}/MemberController" method="post">
             Payment Amount<input type="text" name="amount"/>
             <br>
             <input type="submit"/>
-            
             
         </form>
     </body>
