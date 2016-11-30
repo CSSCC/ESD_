@@ -22,14 +22,15 @@
                 <th>Amount&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
             </tr>
             <%
-                Claim claim = new Claim();
-                String user = (String) request.getAttribute("user");
+                //LISTS ALL CLAIMS MADE BY CURRENTLY LOGGED IN MEMBER******************
+                Claim claim = new Claim();                                      //Sets up instance of Claim for reading database
+                String user = (String) request.getAttribute("user");            //Gets String for the currently logged in user.
                 for (int i = 0; i < claim.getClaimsSize(); i++) {
-                    if (user.equals(claim.getMemId(i))) {
+                    if (user.equals(claim.getMemId(i))) {                       //Checks for username match and only outputs when it does
                         out.println("<tr>");
                         out.println("<td>"
                                 + claim.getId(i) + "</td><td>"
-                                + claim.getMemId(i) + "</td><td>"
+                                + claim.getMemId(i) + "</td><td>"               //Outputs information in correct format.
                                 + claim.getDate(i) + "</td><td>"
                                 + claim.getRationale(i) + "</td><td>"
                                 + claim.getStatus(i) + "</td><td>"
