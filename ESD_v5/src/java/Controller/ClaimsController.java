@@ -11,6 +11,7 @@
 
 package Controller;
  
+import Models.Claim;
  import java.io.IOException;
  import java.sql.SQLException;
  import java.text.SimpleDateFormat;
@@ -26,6 +27,8 @@ package Controller;
  import java.sql.Connection;
  import java.sql.ResultSet;
  import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
  
  /**
   *
@@ -45,21 +48,33 @@ public class ClaimsController extends HttpServlet {
       */
     
      protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-             throws ServletException, IOException {
+             throws ServletException, IOException, SQLException {
          
          Jdbc Jbean = new Jdbc();
+         Claim claim = new Claim();
          
-         int id = 15;
-         String mem_id = request.getParameter("mem_id");
-         String date = request.getParameter("date");
+         String mem_id = (String) request.getSession().getAttribute("username");
+         String date = new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime());;
          String rationale = request.getParameter("rationale");
-         String status = "Pending";
+         String status = "SUBMITTED";
          String amount = request.getParameter("amount");
  
-         id++;
-         request.setAttribute("count", id);
+         int id = 0;
+         int claimsId = 0;
+         String claimsIdString = "";
+         
+         //get max id in claims
+         for (int i = 0; i < claim.getClaimsSize(); i++) {
+             claimsIdString = claim.getId(i);
+             claimsId = Integer.parseInt(claimsIdString);
+             if(id < claimsId){
+                id = claimsId;
+            }
+        }
+         claimsId++;
+         
  
-         Jbean.executeSQLUpdate("INSERT INTO claims (id, mem_id, date, rationale, status, amount) VALUES ('" + id + "', '" + mem_id + "', '" + date + "', '" + rationale + "', '" + status + "', '" + amount + "')");
+         Jbean.executeSQLUpdate("INSERT INTO claims (id, mem_id, date, rationale, status, amount) VALUES ('" + claimsId + "', '" + mem_id + "', '" + date + "', '" + rationale + "', '" + status + "', '" + amount + "')");
  
          String nextJSP = "/docs/mainMember.jsp";
          RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextJSP);
@@ -79,7 +94,11 @@ public class ClaimsController extends HttpServlet {
      @Override
      protected void doGet(HttpServletRequest request, HttpServletResponse response)
              throws ServletException, IOException {
-         processRequest(request, response);
+         try {
+             processRequest(request, response);
+         } catch (SQLException ex) {
+             Logger.getLogger(ClaimsController.class.getName()).log(Level.SEVERE, null, ex);
+         }
      }
  
      /**
@@ -93,7 +112,11 @@ public class ClaimsController extends HttpServlet {
      @Override
      protected void doPost(HttpServletRequest request, HttpServletResponse response)
              throws ServletException, IOException {
-         processRequest(request, response);
+         try {
+             processRequest(request, response);
+         } catch (SQLException ex) {
+             Logger.getLogger(ClaimsController.class.getName()).log(Level.SEVERE, null, ex);
+         }
      }
  
      /**

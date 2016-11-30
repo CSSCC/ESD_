@@ -27,7 +27,7 @@
         <url-pattern>/RegistrationController</url-pattern>
     </servlet-mapping>
     
-     <servlet>
+    <servlet>
         <servlet-name>MemberController</servlet-name>
         <servlet-class>Controller.MemberController</servlet-class>
     </servlet>
@@ -45,6 +45,14 @@
         <url-pattern>/AdminController</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>ClaimsController</servlet-name>
+        <servlet-class>Controller.ClaimsController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ClaimsController</servlet-name>
+        <url-pattern>/ClaimsController</url-pattern>
+    </servlet-mapping>
 
     <session-config>
         <session-timeout>10</session-timeout>
