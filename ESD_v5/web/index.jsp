@@ -34,6 +34,7 @@
             </br>
             DOB  <input type="date" name="dob" />
             </br>
+ 
             <input type="submit" />
             <input type="reset" />
                  </br>     </br>

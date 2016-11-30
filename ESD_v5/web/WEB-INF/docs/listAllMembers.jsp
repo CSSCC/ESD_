@@ -30,7 +30,7 @@
            
          for (int i = 0; i < memb.getMembersSize(); i++) {
              balance = Integer.parseInt(memb.getBalance(i));
-             if(balance != 0){
+             
                  out.println("<tr>");
                  out.println("<td>" 
                          + memb.getId(i) + " </td><td> "
@@ -40,7 +40,7 @@
                          + memb.getDor(i) + " </td><td>"
                          + memb.getStatus(i) + " </td><td>"
                          + memb.getBalance(i) + " </td><td>");
-             }
+             
          }
          %>
          </table>

@@ -25,12 +25,12 @@
                </tr>
                <%
          Claim claim = new Claim();
-         int id = 0;
-         int amount = 0; 
+         String id = "";
+         String amount = ""; 
            
          for (int i = 0; i < claim.getClaimsSize(); i++) {
-             id = Integer.parseInt(claim.getId(i));
-             amount = Integer.parseInt(claim.getAmount(i));
+             id = claim.getId(i);
+             amount = claim.getAmount(i);
                  out.println("<tr>");
                  out.println("<td>" 
                          + claim.getId(i) + " </td><td> "

@@ -13,27 +13,32 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>All Provisional Member Applications</h1>
-         <h1>Members</h1> 
-         <table>
-               <tr>
-                   <th>ID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-                   <th>Name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-                   <th>Status&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-               </tr>
-               <%
-         Member memb = new Member();
-           
-         for (int i = 0; i < memb.getMembersSize(); i++) {
-                 out.println("<tr>");
-                 out.println("<td>" 
-                         + memb.getId(i) + " </td><td> "
-                         + memb.getName(i) + " </td><td>"
-                         + memb.getStatus(i) + " </td><td>"
-                         );
-             }
-         }
-         %>
-         </table>
+        <h1>Members</h1> 
+        <table>
+            <tr>
+                <th>ID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                <th>Name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                <th>Status&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                <th>Balance&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+            </tr>
+            <%
+                Member memb = new Member();
+                int balance = 0;
+                String status = "";
+
+                for (int i = 0; i < memb.getMembersSize(); i++) {
+                    balance = Integer.parseInt(memb.getBalance(i));
+                    status = memb.getStatus(i);
+                    if ("APPLIED".equals(status)) {
+                        out.println("<tr>");
+                        out.println("<td>"
+                                + memb.getId(i) + " </td><td> "
+                                + memb.getName(i) + " </td><td>"
+                                + memb.getStatus(i) + " </td><td>"
+                                + memb.getBalance(i) + " </td><td>");
+                    }
+                }
+            %>
+        </table>
     </body>
 </html>
