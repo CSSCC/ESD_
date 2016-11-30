@@ -13,9 +13,12 @@
         <title>JSP Page</title>
     </head>
     <body>
-<<<<<<< HEAD
+
         <table>
             <tr>
+                <th>Name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                <th>Username&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                <th>Status&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
                 <th>Balance&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
             </tr>
 
@@ -29,11 +32,8 @@
                     if (balance != 0) {
                         out.println("<tr>");
                         out.println("<td>"
-                                + memb.getId(i) + " </td><td> "
                                 + memb.getName(i) + " </td><td>"
-                                + memb.getAddress(i) + " </td><td>"
-                                + memb.getDob(i) + " </td><td>"
-                                + memb.getDor(i) + " </td><td>"
+                                + memb.getId(i) + " </td><td> "
                                 + memb.getStatus(i) + " </td><td>"
                                 + memb.getBalance(i) + " </td><td>");
                     }
@@ -41,16 +41,6 @@
             %>
 
         </table>
-=======
-          <table>
-               <tr>
-                   <th>Balance&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-               </tr>
-               
-        <h1>All Outstanding Balances</h1>
-        
-        
-               </table>
->>>>>>> 4def6db26ffbce0a430e2060289b1d8d5f645e1e
+
     </body>
 </html>

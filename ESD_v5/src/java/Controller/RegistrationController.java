@@ -46,7 +46,7 @@ public class RegistrationController extends HttpServlet {
         String address = request.getParameter("address");
         String password = "";
         String dob = request.getParameter("dob");
-        String dor = request.getParameter("dob"); //CHNAGE TO CURRENT DATE
+        String dor = new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime());
         String status = "APPLIED";
         String balance = "10";
         

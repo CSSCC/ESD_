@@ -63,6 +63,9 @@ public class FrontController extends HttpServlet {
             include = "paymentError.jsp";
         } else if (id.equals("/docs/listProvApps")) {
             include = "listProvApps.jsp";
+        } else if (id.equals("/docs/listAllClaimsMember")) {
+            include = "listAllClaimsMember.jsp";
+
         }
         getServletContext().log("Front received a request for " + id);
         request.setAttribute("doco", include);
