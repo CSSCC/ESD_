@@ -42,7 +42,7 @@ public class Payment {
     
     public String getMemId(int index) throws SQLException {
 
-        mem_id = Jdbc.runQuery("SELECT * FROM payments", " mem_id");
+        mem_id = Jdbc.runQuery("SELECT * FROM payments", "mem_id");
         String individual_mem_id =  mem_id.get(index);
 
         return individual_mem_id;
