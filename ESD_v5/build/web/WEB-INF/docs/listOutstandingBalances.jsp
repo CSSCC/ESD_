@@ -13,6 +13,7 @@
         <title>JSP Page</title>
     </head>
     <body>
+<<<<<<< HEAD
         <table>
             <tr>
                 <th>Balance&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
@@ -40,5 +41,16 @@
             %>
 
         </table>
+=======
+          <table>
+               <tr>
+                   <th>Balance&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+               </tr>
+               
+        <h1>All Outstanding Balances</h1>
+        
+        
+               </table>
+>>>>>>> 4def6db26ffbce0a430e2060289b1d8d5f645e1e
     </body>
 </html>
