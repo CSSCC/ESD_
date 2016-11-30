@@ -13,7 +13,7 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Members</h1> 
+        <h1>Provisional Members</h1> 
         <table>
             <tr>
                 <th>ID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
@@ -40,5 +40,12 @@
                 }
             %>
         </table>
+        <br>
+        <h1>Approve Membership</h1>
+            <form action ="${pageContext.request.contextPath}/AdminController" method="post">
+            ID of user to approve <input type="text" name="mem_id"/>
+            <br>
+            <input type="submit"/>
+            </form>
     </body>
 </html>
