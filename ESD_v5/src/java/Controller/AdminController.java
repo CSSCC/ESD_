@@ -39,15 +39,15 @@ public class AdminController extends HttpServlet {
         
         Jdbc Jbean = new Jdbc();
         String id = request.getRequestURI().substring(request.getContextPath().length());
-        String requestingView = request.getParameter("viewId");
         response.setContentType("text/html;charset=UTF-8");
+        String pathTrace = request.getHeader("referer");
         
-        if (requestingView.equals("/docs/checkOutBalance.jsp")) {
+        if (pathTrace.equals("http://localhost:8084/ESD_v5/docs/listProvApps")) {     
             updateMembership(request, Jbean, response);
         }
-        else if(requestingView.equals("/docs/listClaims")){
+        else if(pathTrace.equals("http://localhost:8084/ESD_v5/docs/listClaims")){
             updateClaimStatus(request, Jbean, response);
-        }
+       }
     }
 
     public void updateMembership(HttpServletRequest request, Jdbc Jbean, HttpServletResponse response) throws ServletException, IOException, SQLException {

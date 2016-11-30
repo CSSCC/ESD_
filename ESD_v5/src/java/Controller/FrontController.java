@@ -70,7 +70,6 @@ public class FrontController extends HttpServlet {
                 break;
                 
             case "/docs/listOutstandingBalances":
-                
                 include = "listOutstandingBalances.jsp";
                 break;
                 

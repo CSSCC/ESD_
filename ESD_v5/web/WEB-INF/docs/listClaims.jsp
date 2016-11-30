@@ -20,10 +20,7 @@
         <form action ="${pageContext.request.contextPath}/AdminController" method="post">
             ID Number <input type="text" name="id"/>
             <br>
-            <select>
-                <option name="status" value="approved">Approved</option>
-                <option name="status" value="rejected">Rejected</option>
-            </select>
+            APPROVED/REJECTED <input type="text" name="status"/>
             <br>
             <input type="submit"/>
         </form>
@@ -40,7 +37,7 @@
             </tr>
             <%
                 Claim claim = new Claim();
-
+               
                 for (int i = 0; i < claim.getClaimsSize() + 1; i++) {
 
                     out.println("<tr>");
