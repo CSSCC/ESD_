@@ -16,6 +16,18 @@
         <title>List Claims</title>
     </head>
     <body>
+        <h1>Claim Response</h1>
+        <form action ="${pageContext.request.contextPath}/AdminController" method="post">
+            ID Number <input type="text" name="id"/>
+            <br>
+            <select>
+                <option name="status" value="approved">Approved</option>
+                <option name="status" value="rejected">Rejected</option>
+            </select>
+            <br>
+            <input type="submit"/>
+        </form>
+
         <h1>All Claims</h1>
         <table>
             <tr>
@@ -26,6 +38,7 @@
                 <th>Status&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
                 <th>Amount&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
             </tr>
+<<<<<<< HEAD
                <%
                     Claim claim = new Claim();                  //For reading data from database.
                     Member memb = new Member();                 //''
@@ -42,5 +55,26 @@
                         }
                 %>
          </table>
+=======
+            <%
+                Claim claim = new Claim();
+
+                for (int i = 0; i < claim.getClaimsSize() + 1; i++) {
+
+                    out.println("<tr>");
+                    out.println("<td>"
+                            + claim.getId(i) + " </td><td> "
+                            + claim.getMemId(i) + " </td><td> "
+                            + claim.getDate(i) + " </td><td> "
+                            + claim.getRationale(i) + " </td><td> "
+                            + claim.getStatus(i) + " </td><td> "
+                            + claim.getAmount(i) + " </td><td> ");
+                }
+            %>
+        </table>
+
+        <br>
+
+>>>>>>> ed050f9cd5df594c21ccdc7bbb86b0b5d266ecea
     </body>
 </html>

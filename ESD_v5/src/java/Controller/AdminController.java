@@ -5,6 +5,7 @@
  */
 package Controller;
 
+import Models.Claim;
 import Models.Jdbc;
 import Models.Member;
 import java.io.IOException;
@@ -39,11 +40,15 @@ public class AdminController extends HttpServlet {
         
         Jdbc Jbean = new Jdbc();
         String id = request.getRequestURI().substring(request.getContextPath().length());
+        String requestingView = request.getParameter("viewId");
         response.setContentType("text/html;charset=UTF-8");
         
-        //if (id.equals("/docs/checkOutBalance")) {
+        if (requestingView.equals("/docs/checkOutBalance.jsp")) {
             updateMembership(request, Jbean, response);
-        //}
+        }
+        else if(requestingView.equals("/docs/listClaims")){
+            updateClaimStatus(request, Jbean, response);
+        }
     }
 
     public void updateMembership(HttpServletRequest request, Jdbc Jbean, HttpServletResponse response) throws ServletException, IOException, SQLException {
@@ -57,8 +62,58 @@ public class AdminController extends HttpServlet {
         dispatcher.forward(request, response);
         }
         
+    public void updateClaimStatus(HttpServletRequest request, Jdbc Jbean, HttpServletResponse response) throws ServletException, IOException, SQLException {
+         
+        String nextJSP = "/docs/listClaims.jsp";
+        String id = request.getParameter("id");
+        String status = request.getParameter("status");
         
+        Jbean.executeSQLUpdate("UPDATE claims SET status = '"+ status +"' WHERE ID = '" + id + "'");
+
+        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextJSP);
+        dispatcher.forward(request, response);
+        }
+        
+    ArrayList<String> memberIDs;
+    int memberTotal;
+    ArrayList<String> claimIDs;
+    int claimTotal;        
+    int amountTotal = 0;        
     
+    public void calcAnnualFee (HttpServletRequest request, HttpServletResponse response) throws SQLException {
+        
+        memberIDs = Jdbc.runQuery("SELECT * FROM members", "id");
+        memberTotal = memberIDs.size();
+        claimIDs = Jdbc.runQuery("SELECT * FROM claims", "id");
+        claimTotal = claimIDs.size();
+        Claim claim = new Claim();
+        Member memb = new Member();
+        String yearCheck = "";
+        String[] temp = new String[3];
+        String balancee = "";
+        int balance = 0;
+        Jdbc Jbean = new Jdbc();
+        String year = request.getParameter("year");
+        
+        for (int i=0; i<claimTotal; i++) {
+            temp = claim.getDate(i).split("-") ;
+            
+            if(temp[0] == year){
+                amountTotal = amountTotal + Integer.parseInt(claim.getAmount(i));
+            }
+        }           
+        
+        int charge = amountTotal / memberTotal; 
+      
+        for (int i = 0; i < memberTotal; i++) {
+                balance = 0;
+                balancee = memb.getBalance(i);
+                balance = Integer.parseInt(memb.getBalance(i));
+                balance = balance + charge;
+                Jbean.executeSQLUpdate("UPDATE members SET balance = '"+ balance +"' WHERE ID = '" + memb.getId(i) + "'");
+        }
+        
+    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

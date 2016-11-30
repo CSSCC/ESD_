@@ -66,16 +66,11 @@ public class FrontController extends HttpServlet {
                 break;
                 
             case "/docs/listClaims":
-                qry = "select * from claims";
-                msg = Jbean.retrieve(qry);   
-                request.setAttribute("query", msg);
                 include = "listClaims.jsp";
                 break;
                 
             case "/docs/listOutstandingBalances":
-                qry = "SELECT * FROM members WHERE status='APPROVED' AND balance > 0";
-                msg = Jbean.retrieve(qry);   
-                request.setAttribute("query", msg);
+                
                 include = "listOutstandingBalances.jsp";
                 break;
                 
