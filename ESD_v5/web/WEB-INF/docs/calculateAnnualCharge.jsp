@@ -16,12 +16,10 @@
     </body>
     
             <form action ="${pageContext.request.contextPath}/AdminController" method="post">
-                Which year <select> <option name="year" value="2016">2016 </option>
-                <option name="year" value="2015">2015 </option>
-                <option name="year" value="2014">2014 </option>
-                <option name="year" value="2013">2013 </option>
-                <option name="year" value="2012">2012 </option>
-                <option name="year" value="2011">2011 </option>
+               
+                Enter Year <input type="text" name="year"/>
+           
+                <br>
                </select>
             <br>
             <input type="submit"/>
