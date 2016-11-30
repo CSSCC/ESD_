@@ -103,6 +103,10 @@ public class FrontController extends HttpServlet {
             case "/docs/mainMember":
                 include = "mainMember.jsp";
             break;
+            
+            case "/docs/calculateAnnualCharge":
+                include = "calculateAnnualCharge.jsp";
+            break;
         }
 
         getServletContext().log("Front received a request for " + id);
