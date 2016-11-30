@@ -14,35 +14,7 @@
     </head>
     <body>
         <h1>Members</h1> 
-         <table>
-               <tr>
-                   <th>ID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-                   <th>Name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-                   <th>Address&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-                   <th>Dob&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-                   <th>Dor&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-                   <th>Status&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-                   <th>Balance&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-               </tr>
-               <%
-         Member memb = new Member();
-         int balance = 0;
-           
-         for (int i = 0; i < memb.getMembersSize(); i++) {
-             
-             
-                 out.println("<tr>");
-                 out.println("<td>" 
-                         + memb.getId(i) + " </td><td> "
-                         + memb.getName(i) + " </td><td>"
-                         + memb.getAddress(i) + " </td><td>"
-                         + memb.getDob(i) + " </td><td>"
-                         + memb.getDor(i) + " </td><td>"
-                         + memb.getStatus(i) + " </td><td>"
-                         + memb.getBalance(i) + " </td><td>");
-             
-         }
-         %>
-         </table>
+         
+        <%=(String)(request.getAttribute("query"))%>
     </body>
 </html>

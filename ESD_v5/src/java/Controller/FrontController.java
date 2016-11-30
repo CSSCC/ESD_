@@ -1,6 +1,10 @@
 package Controller;
 
+import Models.Jdbc;
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -23,11 +27,12 @@ public class FrontController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, SQLException {
         String id = request.getRequestURI().substring(request.getContextPath().length());
         String page = "/WEB-INF/docs/mainMember.jsp";
         HttpSession session = request.getSession(true);
         String username = (String) session.getAttribute("username");
+        Jdbc Jbean = new Jdbc();
 
         if (id != "RegistrationController") {
             //if user is admin display main else mainPage
@@ -41,39 +46,65 @@ public class FrontController extends HttpServlet {
         }
         //if id equals " " include specific jsp
         String include = "";
-       
-
+        String qry;
+        String msg;
+        
         switch (id) {
             case "/Front":
                 include = "loginPage.jsp";
                 break;
+                
             case "/docs/index":
                 include = "index.jsp";
                 break;
+                
             case "/docs/listAllMembers":
+                qry = "select * from members";
+                msg = Jbean.retrieve(qry);   
+                request.setAttribute("query", msg);
                 include = "listAllMembers.jsp";
                 break;
+                
             case "/docs/listClaims":
+                qry = "select * from claims";
+                msg = Jbean.retrieve(qry);   
+                request.setAttribute("query", msg);
                 include = "listClaims.jsp";
                 break;
+                
             case "/docs/listOutstandingBalances":
+                qry = "SELECT * FROM members WHERE status='APPROVED' AND balance > 0";
+                msg = Jbean.retrieve(qry);   
+                request.setAttribute("query", msg);
                 include = "listOutstandingBalances.jsp";
                 break;
+                
             case "/docs/listProvApps":
+                qry = "select * from members";
+                msg = Jbean.retrieve(qry);   
+                request.setAttribute("query", msg);
                 include = "listProvApps.jsp";
                 break;
+                
             case "/docs/checkOutBalance":
                 include = "checkOutBalance.jsp";
                 break;
+                
             case "/docs/submitClaim":
                 include = "submitClaim.jsp";
                 break;
+                
             case "/docs/paymentError":
                 include = "paymentError.jsp";
                 break;
+                
             case "/docs/listAllClaimsMember":
+                qry = "select * from payments";
+                msg = Jbean.retrieve(qry);   
+                request.setAttribute("query", msg);
                 include = "listAllClaimsMember.jsp";
                 break;
+                
             case "/docs/mainMember":
                 include = "mainMember.jsp";
             break;
@@ -98,7 +129,11 @@ public class FrontController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(FrontController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -112,7 +147,11 @@ public class FrontController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(FrontController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

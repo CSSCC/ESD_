@@ -1,4 +1,3 @@
-
 <%@page import="Models.Payment"%>
 <%@page import="Models.Member"%>
 <%@page import="Models.Claim"%>
@@ -36,10 +35,7 @@
                                 + claim.getStatus(i) + "</td><td>"
                                 + claim.getAmount(i) + "</td><td></tr>");
                     }
-
                 }
-
-
             %>
         </table>
 

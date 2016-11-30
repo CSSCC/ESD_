@@ -90,6 +90,67 @@ public class Jdbc {
         }
     }
      
+     
+     
+     
+     
+     
+     
+     
+     private ArrayList rsToList() throws SQLException {
+        ArrayList aList = new ArrayList();
+
+        int cols = resultSet.getMetaData().getColumnCount();
+        while (resultSet.next()) { 
+          String[] s = new String[cols];
+          for (int i = 1; i <= cols; i++) {
+            s[i-1] = resultSet.getString(i);
+          } 
+          aList.add(s);
+        } // while    
+        return aList;
+    } //rsToList
+ 
+    private String makeTable(ArrayList list) {
+        StringBuilder b = new StringBuilder();
+        String[] row;
+        b.append("<table border=\"3\">");
+        for (Object s : list) {
+          b.append("<tr>");
+          row = (String[]) s;
+            for (String row1 : row) {
+                b.append("<td>");
+                b.append(row1);
+                b.append("</td>");
+            }
+          b.append("</tr>\n");
+        } // for
+        b.append("</table>");
+        return b.toString();
+    }//makeHtmlTable
+     
+    private void select(String query){
+        //Statement statement = null;
+        
+        try {
+            statement = con.createStatement();
+            resultSet = statement.executeQuery(query);
+            //statement.close();
+        }
+        catch(SQLException e) {
+            System.out.println("way way"+e);
+            //results = e.toString();
+        }
+    }
+    
+    public String retrieve(String query) throws SQLException {
+        String results="";
+        select(query);
+
+        return makeTable(rsToList());//results;
+    }
+    
+    
     //database run update
     public static void runUpdate(String update) throws SQLException{
         Statement st = con.createStatement();
