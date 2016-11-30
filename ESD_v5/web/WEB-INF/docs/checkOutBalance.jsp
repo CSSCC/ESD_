@@ -36,13 +36,14 @@
                     
                                 + memb.getId(i) + " </td><td>" 
                                 + memb.getBalance(i) + " DR </td><td>");
-                   }
+                        request.setAttribute("balance", memb.getBalance(i));
+                                           }
                 
                 }
             %>               
             </table>
             <h1>Make a Payment</h1>
-            <form action ="checkLoginDetails.jsp" method="post">
+            <form action ="${pageContext.request.contextPath}/MemberController" method="post">
             Payment Amount<input type="text" name="amount"/>
             <br>
             <input type="submit"/>

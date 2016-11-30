@@ -59,6 +59,8 @@ public class FrontController extends HttpServlet {
             include = "makePayment.jsp"; 
         } else if (id.equals("/docs/submitClaim")) {
             include = "submitClaim.jsp"; 
+        } else if (id.equals("/docs/paymentError")) {
+            include = "paymentError.jsp";
         } else if (id.equals("/docs/listProvApps")) {
             include = "listProvApps.jsp";
         }

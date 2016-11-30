@@ -5,8 +5,15 @@
  */
 package Controller;
 
+import Models.Jdbc;
+import Models.Member;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -28,20 +35,50 @@ public class MemberController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, SQLException {
+        
+        Jdbc Jbean = new Jdbc();
+        String id = request.getRequestURI().substring(request.getContextPath().length());
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet MemberController</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet MemberController at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+        
+        //if (id.equals("/docs/checkOutBalance")) {
+            updatePayment(request, Jbean, response);
+        //}
+    }
+
+    public void updatePayment(HttpServletRequest request, Jdbc Jbean, HttpServletResponse response) throws ServletException, IOException, SQLException {
+         
+        Member memb = new Member();
+        String username = (String) request.getSession().getAttribute("username");
+        String userBalance = (String) request.getAttribute("balance");
+        String balancee = "";
+        int balance = 0;
+
+        for (int i = 0; i < memb.getMembersSize(); i++) {
+            username = memb.getId(i);
+            if (username.equals(username)) {
+                balancee = memb.getBalance(i);
+                balance = Integer.parseInt(memb.getBalance(i));
+            }
         }
+
+        String amountt = request.getParameter("amount");
+        int amount = Integer.parseInt(amountt);
+
+        balance = balance - amount;
+
+        if(balance < 0){
+        String nextJSP = "/paymentError.jsp";
+        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextJSP);
+        dispatcher.forward(request, response);
+        } else {
+        Jbean.executeSQLUpdate("UPDATE members SET balance = '" + balance + "' WHERE ID = '" + username + "'");
+        String nextJSP = "/mainMember.jsp";
+        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextJSP);
+        dispatcher.forward(request, response);
+        }
+        
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -56,7 +93,11 @@ public class MemberController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(MemberController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -70,7 +111,11 @@ public class MemberController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(MemberController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
