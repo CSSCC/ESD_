@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class Claim {
     
     ArrayList<String> id;
-    ArrayList<String> mem_id;
+    ArrayList<String> memId;
     ArrayList<String> date;
     ArrayList<String> rationale;
     ArrayList<String> status;
@@ -20,7 +20,7 @@ public class Claim {
         //Checks values of variables after querying database
         id = Jdbc.runQuery("SELECT * FROM claims", "id");
         
-        mem_id = Jdbc.runQuery("SELECT * FROM claims", "mem_id");
+        memId = Jdbc.runQuery("SELECT * FROM claims", "mem_id");
         
         date = Jdbc.runQuery("SELECT * FROM claims", "date");
 
@@ -44,10 +44,10 @@ public class Claim {
     
     public String getMemId(int index) throws SQLException {
 
-        mem_id = Jdbc.runQuery("SELECT * FROM claims", " mem_id");
-        String individual_mem_id =  mem_id.get(index);
+        memId = Jdbc.runQuery("SELECT * FROM claims", " mem_id");
+        String individual_memId =  memId.get(index);
 
-        return individual_mem_id;
+        return individual_memId;
     }
 
     public String getDate(int index) throws SQLException {
