@@ -8,7 +8,7 @@ public class Payment {
     
     ArrayList<String> id;
     ArrayList<String> mem_id;
-    //ArrayList<String> date;
+   // ArrayList<String> date;
     ArrayList<String> type_of_payment;
     ArrayList<String> amount;
     
@@ -25,7 +25,7 @@ public class Payment {
 
         amount = Jdbc.runQuery("SELECT * FROM payments", "amount");
 
-        //date = Jdbc.runQuery("SELECT * FROM payment", "date");
+      //  date = Jdbc.runQuery("SELECT * FROM payment", "date");
         
        
         paymentSize = id.size();

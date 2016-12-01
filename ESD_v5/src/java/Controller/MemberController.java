@@ -52,7 +52,7 @@ public class MemberController extends HttpServlet {
         int balance = 0;
 
         for (int i = 0; i < memb.getMembersSize(); i++) { //iterates through members database
-            String user = memb.getId(i); 
+            String user = memb.getId(i);
             if (username.equals(user)) { //if username matches current year
                 balancee = memb.getBalance(i); //gets the users balance
                 balance = Integer.parseInt(memb.getBalance(i)); // converts it to int
@@ -70,9 +70,24 @@ public class MemberController extends HttpServlet {
             dispatcher.forward(request, response); // forwards request
         } else {
             Jbean.executeSQLUpdate("UPDATE members SET balance = '" + balance + "' WHERE ID = '" + username + "'"); // updates sql database with results
-            
+
             Payment pay = new Payment();
-           // Jbean.executeSQLUpdate("INSERT payments SET balance = '" + balance + "' WHERE ID = '" + username + "'"); // updates sql database with results
+            int id = 0;
+            int payId = 0;
+            String payIdString = "";
+
+            //get max id in claims
+            for (int i = 0; i < pay.getPaymentSize(); i++) {
+                payIdString = pay.getId(i);
+                payId = Integer.parseInt(payIdString);
+                if (id < payId) {
+                    id = payId;
+                }
+            }
+            payId++;
+            
+            Jbean.executeSQLUpdate("INSERT INTO payments (id, mem_id, type_of_payment, amount, date) VALUES ('"+payId+"', '"+username+"', 'FEE', '"+amount+"', '2016-01-05 15:13:43')"); // updates sql database with results
+             
             nextJSP = "/docs/mainMember.jsp";
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextJSP);
             dispatcher.forward(request, response);
