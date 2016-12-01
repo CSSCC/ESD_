@@ -20,7 +20,7 @@
         %>
         <br><br>
         <div id ="nav">
-
+            <!-- Navigation Bar -->
             <a href="<%=request.getContextPath()%>/docs/index">Home</a><br>
             <a href="<%=request.getContextPath()%>/docs/checkOutBalance">Outstanding Balance & Payment</a><br>
             <a href="<%=request.getContextPath()%>/docs/submitClaim">Submit a Claim</a><br>

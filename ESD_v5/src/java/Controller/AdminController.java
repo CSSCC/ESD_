@@ -40,43 +40,41 @@ public class AdminController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
 
-        Jdbc Jbean = new Jdbc();
+        Jdbc Jbean = new Jdbc(); // calls Database
         String id = request.getRequestURI().substring(request.getContextPath().length());
         response.setContentType("text/html;charset=UTF-8");
-        String pathTrace = request.getHeader("referer");
+        String pathTrace = request.getHeader("referer"); // gets previous page url
 
-        if (pathTrace.equals("http://localhost:8084/ESD_v5/docs/listProvApps")) {
+        if (pathTrace.equals("http://localhost:8084/ESD_v5/docs/listProvApps")) { // if page matches run method
             updateMembership(request, Jbean, response);
         } else if (pathTrace.equals("http://localhost:8084/ESD_v5/docs/listClaims")) {
             updateClaimStatus(request, Jbean, response);
         } else if (pathTrace.equals("http://localhost:8084/ESD_v5/docs/calculateAnnualCharge")) {
             calcAnnualFee(request, Jbean, response);
-        }
-         else if (pathTrace.equals("http://localhost:8084/ESD_v5/docs/chargeSubFee")) {
+        } else if (pathTrace.equals("http://localhost:8084/ESD_v5/docs/chargeSubFee")) {
             chargeAnnualSubscriptionFee(request, Jbean, response);
         }
     }
 
     public void updateMembership(HttpServletRequest request, Jdbc Jbean, HttpServletResponse response) throws ServletException, IOException, SQLException {
 
-        String nextJSP = "/docs/listProvApps.jsp";
-        String mem_id = request.getParameter("mem_id");
+        String mem_id = request.getParameter("mem_id"); // retrieves parameter usernamee
+        String status = request.getParameter("status");
+   
+        Jbean.executeSQLUpdate("UPDATE members SET status = '"+status+ "' WHERE ID = '" + mem_id + "'"); // executes statement via database and make changes
 
-        Jbean.executeSQLUpdate("UPDATE members SET status = 'APPROVED' WHERE ID = '" + mem_id + "'");
-
-        String direct = "http://localhost:8084/ESD_v5/docs/changesMade";
+        String direct = "http://localhost:8084/ESD_v5/docs/changesMade"; // redirect 
         response.sendRedirect(direct);
     }
 
     public void updateClaimStatus(HttpServletRequest request, Jdbc Jbean, HttpServletResponse response) throws ServletException, IOException, SQLException {
 
-        String nextJSP = "/docs/listClaims.jsp";
-        String id = request.getParameter("id");
-        String status = request.getParameter("status");
+        String id = request.getParameter("id"); // gets id parameter
+        String status = request.getParameter("status"); // get status parameter
 
-        Jbean.executeSQLUpdate("UPDATE claims SET status = '" + status + "' WHERE ID = '" + id + "'");
+        Jbean.executeSQLUpdate("UPDATE claims SET status = '" + status + "' WHERE ID = '" + id + "'"); // executes statement via database and make changes
 
-        String direct = "http://localhost:8084/ESD_v5/docs/changesMade";
+        String direct = "http://localhost:8084/ESD_v5/docs/changesMade"; // redirect
         response.sendRedirect(direct);
     }
 
@@ -87,9 +85,9 @@ public class AdminController extends HttpServlet {
         ArrayList<String> claimIDs;
         int claimTotal;
         int amountTotal = 0;
-        memberIDs = Jdbc.runQuery("SELECT * FROM members", "id");
+        memberIDs = Jdbc.runQuery("SELECT * FROM members", "id"); // executes statement via database and gets data
         memberTotal = memberIDs.size();
-        claimIDs = Jdbc.runQuery("SELECT * FROM claims", "id");
+        claimIDs = Jdbc.runQuery("SELECT * FROM claims", "id"); // executes statement via database and gets data
         claimTotal = claimIDs.size();
         Claim claim = new Claim();
         Member memb = new Member();
@@ -98,31 +96,30 @@ public class AdminController extends HttpServlet {
         String balancee = "";
         int balance = 0;
         String year = request.getParameter("year");
-        String nextJSP = "/docs/mainAdmin.jsp";
 
         // Adds the claim totals
-        for (int i = 0; i < claimTotal; i++) {
-            temp = claim.getDate(i).split("-");
-            if ("APPROVED".equals(claim.getStatus(i))) {
-                if (temp[0].equals(year)) {
-                    amountTotal = amountTotal + Integer.parseInt(claim.getAmount(i));
+        for (int i = 0; i < claimTotal; i++) { // iterates through claims
+            temp = claim.getDate(i).split("-"); //split date into segements
+            if ("APPROVED".equals(claim.getStatus(i))) { // if claim approved
+                if (temp[0].equals(year)) { // and date is within this year
+                    amountTotal = amountTotal + Integer.parseInt(claim.getAmount(i)); // add claim amount to total
                 }
             }
         }
 
-        int charge = amountTotal / memberTotal;
+        int charge = amountTotal / memberTotal; // divide total between members
         //OUTPUT
-        for (int i = 0; i < memb.getMembersSize(); i++) {
+        for (int i = 0; i < memb.getMembersSize(); i++) { // iterate members
             // if ("APPROVED".equals(memb.getStatus(i))) {
             balance = 0;
             balancee = memb.getBalance(i);
             balance = Integer.parseInt(balancee);
             balance = balance + charge;
-            Jbean.executeSQLUpdate("UPDATE members SET balance = '" + balance + "' WHERE ID = '" + memb.getId(i) + "'");            //}
+            Jbean.executeSQLUpdate("UPDATE members SET balance = '" + balance + "' WHERE ID = '" + memb.getId(i) + "'");   // executes statement via database and make changes
             //  }
         }
 
-        String direct = "http://localhost:8084/ESD_v5/docs/changesMade";
+        String direct = "http://localhost:8084/ESD_v5/docs/changesMade"; // redirect
         response.sendRedirect(direct);
 
     }
@@ -133,45 +130,45 @@ public class AdminController extends HttpServlet {
         String[] temp1 = new String[3];
         String[] temp2 = new String[3];
         String dor = "";
-        String todaysDate = new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime());;
+        String todaysDate = new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime()); // gets todays date
 
-        for (int i = 0; i < memb.getMembersSize(); i++) {
+        for (int i = 0; i < memb.getMembersSize(); i++) { // iterates through members
             dor = memb.getDor(i);
-            temp1 = dor.split("-");
+            temp1 = dor.split("-"); // splits date
             temp2 = todaysDate.split("-");
 
-            if (temp1[2].equals(temp2[2])) {
-                if (temp1[1].equals(temp2[1])) {
-                    
+            if (temp1[2].equals(temp2[2])) { // if day of month matches todays day
+                if (temp1[1].equals(temp2[1])) { // if month matches current month 
+
                     String balancee = memb.getBalance(i);
                     int balance = Integer.parseInt(balancee);
-                    balance = balance + 5;
-                    Jbean.executeSQLUpdate("UPDATE members SET balance = '" + balance + "' WHERE ID = '" + memb.getId(i) + "'");   
+                    balance = balance + 5; // add charge to balance
+                    Jbean.executeSQLUpdate("UPDATE members SET balance = '" + balance + "' WHERE ID = '" + memb.getId(i) + "'");   // executes statement via database and make changes
                 }
             }
         }
-        String direct = "http://localhost:8084/ESD_v5/docs/changesMade";
+        String direct = "http://localhost:8084/ESD_v5/docs/changesMade"; // redirect
         response.sendRedirect(direct);
     }
 // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-/**
- * Handles the HTTP <code>GET</code> method.
- *
- * @param request servlet request
- * @param response servlet response
- * @throws ServletException if a servlet-specific error occurs
- * @throws IOException if an I/O error occurs
- */
-@Override
-        protected void doGet(HttpServletRequest request, HttpServletResponse response)
+
+    /**
+     * Handles the HTTP <code>GET</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
             processRequest(request, response);
-        
 
-} catch (SQLException ex) {
+        } catch (SQLException ex) {
             Logger.getLogger(AdminController.class
-.getName()).log(Level.SEVERE, null, ex);
+                    .getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -184,15 +181,14 @@ public class AdminController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-        protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
             processRequest(request, response);
-        
 
-} catch (SQLException ex) {
+        } catch (SQLException ex) {
             Logger.getLogger(AdminController.class
-.getName()).log(Level.SEVERE, null, ex);
+                    .getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -202,7 +198,7 @@ public class AdminController extends HttpServlet {
      * @return a String containing servlet description
      */
     @Override
-        public String getServletInfo() {
+    public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
 

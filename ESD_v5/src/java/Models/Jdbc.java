@@ -23,23 +23,23 @@ public class Jdbc {
   }
 
     
-    public void setSqlStatement(String sqlStatement) {
+    public void setSqlStatement(String sqlStatement) { // sets the sql statement 
         this.sqlStatement = sqlStatement;
     }
     
     //create connection to database
     public Connection makeConnection(String url) {
-        if (con != null) {
+        if (con != null) { // if no connection
             return con;
         } else {
 
             try {
-                Class.forName("com.mysql.jdbc.Driver");
+                Class.forName("com.mysql.jdbc.Driver"); //gets mysql driver
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(Jdbc.class.getName()).log(Level.SEVERE, null, ex);
             }
             try {
-                con = DriverManager.getConnection(url, "root", "");
+                con = DriverManager.getConnection(url, "root", ""); // sets username and password
             } catch (SQLException ex) {
                 Logger.getLogger(Jdbc.class.getName()).log(Level.SEVERE, null, ex);
 
@@ -48,7 +48,7 @@ public class Jdbc {
         return con;
     }
     //close connection
-    public static void closeConnection(Connection c){
+    public static void closeConnection(Connection c){ // closes the connection
         try{
              c.close();
         }
@@ -59,7 +59,7 @@ public class Jdbc {
     }
     //database run query
     public static ArrayList runQuery(String query, String column) throws SQLException{
-      ArrayList al = new ArrayList();
+      ArrayList al = new ArrayList(); // adds data queryed to an array
        Statement st = con.createStatement();
        ResultSet rs = st.executeQuery(query);
         while (rs.next()) {
@@ -72,29 +72,17 @@ public class Jdbc {
      public void executeSQLUpdate(String sqlStatement) {
 
         //Set SQL statement
-        if (this.sqlStatement == null) {
+        if (this.sqlStatement == null) { // executes the statement to the data base
             setSqlStatement(sqlStatement);
         }
-        System.out.println("Executing SQL Statement:");
-        System.out.println(sqlStatement + "\n");
-        //Execute SQL query
         try {
-            //Create statment
             statement = con.createStatement();
-            //Execute update
             statement.executeUpdate(sqlStatement);
-            System.out.println("SQL Update Successful.\n");
+           
 
         } catch (SQLException e) {
-            System.out.println("SQL Statement Not Executed...\n" + e.toString() + "\n");
         }
     }
-     
-     
-     
-     
-     
-     
      
      
      private ArrayList rsToList() throws SQLException {
@@ -114,7 +102,7 @@ public class Jdbc {
     private String makeTable(ArrayList list) {
         StringBuilder b = new StringBuilder();
         String[] row;
-        b.append("<table border=\"3\">");
+        b.append("<table border=\"3\">"); // makes a table to put data into
         for (Object s : list) {
           b.append("<tr>");
           row = (String[]) s;

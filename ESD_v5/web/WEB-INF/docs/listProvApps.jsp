@@ -10,16 +10,16 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>List Provisional Applications</title>
     </head>
     <body>
         <h1>Provisional Members</h1> 
         <table>
             <tr>
-                <th>ID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-                <th>Name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-                <th>Status&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-                <th>Balance&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Status</th>
+                <th>Balance</th>
             </tr>
             <%
                 Member memb = new Member();                             //Used for reading from database
@@ -40,9 +40,11 @@
             %>
         </table>
         <br>
-        <h1>Approve Membership</h1>
+        <br>
+        <h1>Edit Membership</h1>
             <form action ="${pageContext.request.contextPath}/AdminController" method="post">
-            ID of user to approve <input type="text" name="mem_id"/>
+                Member Id  <input type="text" name="mem_id"/><br>
+                APPLIED/APPROVED/SUSPENDED  <input type="text" name="status"/>
             <br>
             <input type="submit"/>
             </form>

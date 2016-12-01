@@ -18,8 +18,8 @@
         You are now logged in as Admin! 
 
         <div id ="nav">
-
-            <a href="<%=request.getContextPath()%>/docs/index">Home</a><br>
+            <!-- Navigation Bar -->
+            <a href="<%=request.getContextPath()%>/docs/index">Home</a><br> 
             <a href="<%=request.getContextPath()%>/docs/calculateAnnualCharge">Calculate Annual Charge</a><br>
             <a href="<%=request.getContextPath()%>/docs/chargeSubFee">Charge Subscription Fee</a><br>
             <a href="<%=request.getContextPath()%>/docs/listAllMembers">List Members</a><br>

@@ -22,12 +22,12 @@
             <th> Date </th>
         </tr>
         <%               
-            Payment pay = new Payment();
-            for (int i = 0; i < pay.getPaymentSize(); i++) {
+            Payment pay = new Payment(); // calls payment model
+            for (int i = 0; i < pay.getPaymentSize(); i++) { // iterates through payment table
 
                 out.println("<tr>");
                 out.println("<td>"
-                        + pay.getId(i) + "</td><td>"
+                        + pay.getId(i) + "</td><td>" //prints data
                         + pay.getMemId(i) + "</td><td>"
                         + pay.getTypeOfPayment(i) + "</td><td>"
                         + pay.getAmount(i) + "</td><td>"

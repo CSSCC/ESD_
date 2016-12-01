@@ -70,24 +70,24 @@ public class MemberController extends HttpServlet {
         } else {
             Jbean.executeSQLUpdate("UPDATE members SET balance = '" + balance + "' WHERE ID = '" + username + "'"); // updates sql database with results
 
-            Payment pay = new Payment();
+            Payment pay = new Payment(); // opens payment model
             int id = 0;
             int payId = 0;
             String payIdString = "";
 
             //get max id in claims
-            for (int i = 0; i < pay.getPaymentSize(); i++) {
-                payIdString = pay.getId(i);
+            for (int i = 0; i < pay.getPaymentSize(); i++) { // iterates through payments
+                payIdString = pay.getId(i); 
                 payId = Integer.parseInt(payIdString);
-                if (id < payId) {
-                    id = payId;
+                if (id < payId) { // finds biggest payment id
+                    id = payId; // sets biggest payemet id
                 }
             }
             payId++;
 
             Jbean.executeSQLUpdate("INSERT INTO payments (id, mem_id, type_of_payment, amount, date) VALUES ('" + payId + "', '" + username + "', 'FEE', '" + amount + "', '2016-01-05 15:13:43')"); // updates sql database with results
 
-            String direct = "http://localhost:8084/ESD_v5/docs/paymentSuccessful";
+            String direct = "http://localhost:8084/ESD_v5/docs/paymentSuccessful"; // redirect
             response.sendRedirect(direct);
         }
 

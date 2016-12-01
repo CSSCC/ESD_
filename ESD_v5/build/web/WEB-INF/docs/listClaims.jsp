@@ -28,12 +28,12 @@
         <h1>All Claims</h1>
         <table>
             <tr>
-                <th>ID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-                <th>Username&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-                <th>Date&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-                <th>Rationale&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-                <th>Status&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-                <th>Amount&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                <th>ID</th>
+                <th>Username</th>
+                <th>Date</th>
+                <th>Rationale</th>
+                <th>Status</th>
+                <th>Amount</th>
             </tr>
 
                <%

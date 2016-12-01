@@ -17,12 +17,6 @@
          
         <%=(String)(request.getAttribute("query"))%>
         
-        <br>
-        <h1>Edit Membership</h1>
-            <form action ="${pageContext.request.contextPath}/AdminController" method="post">
-            APPLIED/APPROVED/SUSPENDED  <input type="text" name="mem_id"/>
-            <br>
-            <input type="submit"/>
-            </form>
+        
     </body>
 </html>

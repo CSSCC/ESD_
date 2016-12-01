@@ -22,15 +22,15 @@
                 <th> Amount </th>
             </tr>
             <%
-                Claim claim = new Claim();
-                String user = (String) request.getAttribute("user");
+                Claim claim = new Claim(); // calls Claim Model
+                String user = (String) request.getAttribute("user"); //gets user attribute
 
-                for (int i = 0; i < claim.getClaimsSize(); i++) {
+                for (int i = 0; i < claim.getClaimsSize(); i++) { //iterates through claims table
 
-                    if (user.equals(claim.getMemId(i))) {
+                    if (user.equals(claim.getMemId(i))) { //if current user matches user
                         out.println("<tr>");
                         out.println("<td>"
-                                + claim.getId(i) + "</td><td>"
+                                + claim.getId(i) + "</td><td>" // Gets data
                                 + claim.getMemId(i) + "</td><td>"
                                 + claim.getDate(i) + "</td><td>"
                                 + claim.getRationale(i) + "</td><td>"

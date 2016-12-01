@@ -21,10 +21,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
-/**
- *
- * @author Loy
- */
+
 public class RegistrationController extends HttpServlet {
 
     /**
@@ -86,14 +83,14 @@ public class RegistrationController extends HttpServlet {
         }
         
 
-        Jbean.executeSQLUpdate("INSERT INTO members (id, name, address, dob, dor, status, balance) VALUES ('" + username + "', '" + name + "', '" + address + "', '" + dob + "', '" + dor + "', '" + status + "', '" + balance + "')");
+        Jbean.executeSQLUpdate("INSERT INTO members (id, name, address, dob, dor, status, balance) VALUES ('" + username + "', '" + name + "', '" + address + "', '" + dob + "', '" + dor + "', '" + status + "', '" + balance + "')"); // executes statement via database and make changes
 
-        Jbean.executeSQLUpdate("INSERT INTO users (id, password, status) VALUES ('" + username + "', '" + password + "', '" + status + "')");
+        Jbean.executeSQLUpdate("INSERT INTO users (id, password, status) VALUES ('" + username + "', '" + password + "', '" + status + "')");// executes statement via database and make changes
 
         request.setAttribute("user", username);
         request.setAttribute("password", password);
         String nextJSP = "/index.jsp";
-        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextJSP);
+        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextJSP); // redirect
         dispatcher.forward(request,response);
         
     }

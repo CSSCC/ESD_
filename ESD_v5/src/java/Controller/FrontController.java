@@ -30,16 +30,16 @@ public class FrontController extends HttpServlet {
             throws ServletException, IOException, SQLException {
         String id = request.getRequestURI().substring(request.getContextPath().length());
         String page = "/WEB-INF/docs/mainMember.jsp";
-        HttpSession session = request.getSession(true);
+        HttpSession session = request.getSession(true); // starts new SESSION
         String username = (String) session.getAttribute("username");
         Jdbc Jbean = new Jdbc();
 
-        if (id != "RegistrationController") {
+        if (id != "RegistrationController") { // if not redirecting from reg page
             //if user is admin display main else mainPage
-            if (username.equals("admin")) {
-                page = "/WEB-INF/docs/mainAdmin.jsp";
+            if (username.equals("admin")) { // if user is the admin
+                page = "/WEB-INF/docs/mainAdmin.jsp"; // go to admin dashboard
             } else {
-                page = "/WEB-INF/docs/mainMember.jsp";
+                page = "/WEB-INF/docs/mainMember.jsp"; // otherwise go to member dashboard
             }
         } else {
             page = "/WEB-INF/docs/mainMember.jsp";
@@ -49,7 +49,7 @@ public class FrontController extends HttpServlet {
         String qry;
         String msg;
         
-        switch (id) {
+        switch (id) { // finds page directory and sets inclued to that page
             case "/Front":
                 include = "loginPage.jsp";
                 break;
@@ -59,9 +59,9 @@ public class FrontController extends HttpServlet {
                 break;
                 
             case "/docs/listAllMembers":
-                qry = "select * from members";
-                msg = Jbean.retrieve(qry);   
-                request.setAttribute("query", msg);
+                qry = "select * from members"; // sets query 
+                msg = Jbean.retrieve(qry);   // retrieves qeury data
+                request.setAttribute("query", msg); // sets query to attribute
                 include = "listAllMembers.jsp";
                 break;
                 
@@ -129,9 +129,9 @@ public class FrontController extends HttpServlet {
             break;
         }
 
-        request.setAttribute("pagee", include);
-        request.setAttribute("user", username);
-        request.getRequestDispatcher(page).forward(request, response);
+        request.setAttribute("pagee", include);// set page attribute
+        request.setAttribute("user", username); // set user attribute
+        request.getRequestDispatcher(page).forward(request, response); // forwards to destination
 
     }
 

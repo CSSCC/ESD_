@@ -16,10 +16,10 @@
 
         <table>
             <tr>
-                <th>Name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-                <th>Username&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-                <th>Status&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-                <th>Balance&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                <th>Name</th>
+                <th>Username</th>
+                <th>Status</th>
+                <th>Balance</th>
             </tr>
 
             <h1>All Outstanding Balances</h1>

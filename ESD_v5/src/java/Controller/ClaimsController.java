@@ -46,10 +46,10 @@ public class ClaimsController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
 
-        Jdbc Jbean = new Jdbc();
+        Jdbc Jbean = new Jdbc(); // opens database connection
         Claim claim = new Claim();
 
-        String mem_id = (String) request.getSession().getAttribute("username");
+        String mem_id = (String) request.getSession().getAttribute("username"); 
         String date = new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime());;
         String rationale = request.getParameter("rationale");
         String status = "SUBMITTED";
@@ -60,18 +60,18 @@ public class ClaimsController extends HttpServlet {
         String claimsIdString = "";
 
         //get max id in claims
-        for (int i = 0; i < claim.getClaimsSize(); i++) {
-            claimsIdString = claim.getId(i);
+        for (int i = 0; i < claim.getClaimsSize(); i++) { // iterates through claims
+            claimsIdString = claim.getId(i); 
             claimsId = Integer.parseInt(claimsIdString);
-            if (id < claimsId) {
-                id = claimsId;
+            if (id < claimsId) { // if cuurent id is smaller than claim id
+                id = claimsId; // set as bigger id
             }
         }
         claimsId++;
 
-        Jbean.executeSQLUpdate("INSERT INTO claims (id, mem_id, date, rationale, status, amount) VALUES ('" + claimsId + "', '" + mem_id + "', '" + date + "', '" + rationale + "', '" + status + "', '" + amount + "')");
+        Jbean.executeSQLUpdate("INSERT INTO claims (id, mem_id, date, rationale, status, amount) VALUES ('" + claimsId + "', '" + mem_id + "', '" + date + "', '" + rationale + "', '" + status + "', '" + amount + "')"); // executes statement via database and make changes
 
-        String direct = "http://localhost:8084/ESD_v5/docs/claimSubmitted";
+        String direct = "http://localhost:8084/ESD_v5/docs/claimSubmitted"; // redirect
         response.sendRedirect(direct);
 
     }
