@@ -24,8 +24,8 @@
             <a href="<%=request.getContextPath()%>/docs/listAllMembers">List Members</a><br>
             <a href="<%=request.getContextPath()%>/docs/listOutstandingBalances">List Outstanding Balances</a><br>
             <a href="<%=request.getContextPath()%>/docs/listClaims">List Claims</a><br>
-            <a href="<%=request.getContextPath()%>/docs/listProvApps">List Prov Apps</a><br>
-            <a href="<%=request.getContextPath()%>/docs/calculateAnnualCharge">Calculate Annual Charge</a><br>
+            <a href="<%=request.getContextPath()%>/docs/listProvApps">List Outstanding Approvals</a><br>
+            <a href="<%=request.getContextPath()%>/docs/listPaymentsMade">List Payments Made</a><br>
 
             <a href="<%=request.getContextPath()%>/">Logout</a>
         </div> 

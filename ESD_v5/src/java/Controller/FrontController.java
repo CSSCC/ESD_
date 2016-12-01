@@ -100,6 +100,10 @@ public class FrontController extends HttpServlet {
                 include = "mainMember.jsp";
             break;
             
+            case "/docs/listPaymentsMade":
+                include = "listPaymentsMade.jsp";
+            break;
+            
             case "/docs/calculateAnnualCharge":
                 include = "calculateAnnualCharge.jsp";
             break;
