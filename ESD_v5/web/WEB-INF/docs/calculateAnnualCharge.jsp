@@ -20,7 +20,7 @@
                 Enter Year <input type="text" name="year"/>
            
                 <br>
-               </select>
+               
             <br>
             <input type="submit"/>
             </form>

@@ -8,7 +8,7 @@ public class Payment {
     
     ArrayList<String> id;
     ArrayList<String> mem_id;
-    ArrayList<String> date;
+    //ArrayList<String> date;
     ArrayList<String> type_of_payment;
     ArrayList<String> amount;
     
@@ -25,13 +25,13 @@ public class Payment {
 
         amount = Jdbc.runQuery("SELECT * FROM payments", "amount");
 
-        date = Jdbc.runQuery("SELECT * FROM payments", "date");
+        //date = Jdbc.runQuery("SELECT * FROM payment", "date");
         
        
         paymentSize = id.size();
     }
 
-    // getters and setters for the claim class
+// getters and setters for the claim class
     public String getId(int index) throws SQLException {
 
         id = Jdbc.runQuery("SELECT * FROM payments", "id");
@@ -48,13 +48,13 @@ public class Payment {
         return individual_mem_id;
     }
 
-    public String getDate(int index) throws SQLException {
-
-        date = Jdbc.runQuery("SELECT * FROM payments", "date");
-        String individual_date = date.get(index);
-
-        return individual_date;
-    }
+//    public String getDate(int index) throws SQLException {
+//
+//        date = Jdbc.runQuery("SELECT * FROM payments", "date");
+//        String individual_date = date.get(index);
+//
+//        return individual_date;
+//    }
 
     public String getTypeOfPayment(int index) throws SQLException {
 

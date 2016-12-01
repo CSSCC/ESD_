@@ -35,10 +35,9 @@
                 <th>Status&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
                 <th>Amount&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
             </tr>
-<<<<<<< HEAD
+
                <%
                     Claim claim = new Claim();                  //For reading data from database.
-                    Member memb = new Member();                 //''
                     
                         for (int i = 0; i < claim.getClaimsSize()+1; i++) { //Loops for every data entry in database
                             out.println("<tr>");
@@ -52,26 +51,8 @@
                         }
                 %>
          </table>
-=======
-            <%
-                Claim claim = new Claim();
-               
-                for (int i = 0; i < claim.getClaimsSize() + 1; i++) {
-
-                    out.println("<tr>");
-                    out.println("<td>"
-                            + claim.getId(i) + " </td><td> "
-                            + claim.getMemId(i) + " </td><td> "
-                            + claim.getDate(i) + " </td><td> "
-                            + claim.getRationale(i) + " </td><td> "
-                            + claim.getStatus(i) + " </td><td> "
-                            + claim.getAmount(i) + " </td><td> ");
-                }
-            %>
-        </table>
 
         <br>
 
->>>>>>> ed050f9cd5df594c21ccdc7bbb86b0b5d266ecea
     </body>
 </html>

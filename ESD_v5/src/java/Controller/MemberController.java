@@ -1,12 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Controller;
 
 import Models.Jdbc;
 import Models.Member;
+import Models.Pages;
+import Models.Payment;
+import Models.Users;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -36,49 +34,50 @@ public class MemberController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
-        
-        Jdbc Jbean = new Jdbc();
-        String id = request.getRequestURI().substring(request.getContextPath().length());
+
+        Jdbc Jbean = new Jdbc(); // calls the database handler
         response.setContentType("text/html;charset=UTF-8");
-        
+
         //if (id.equals("/docs/checkOutBalance")) {
-            updatePayment(request, Jbean, response);
+        updatePayment(request, Jbean, response); // runs update payment
         //}
     }
 
     public void updatePayment(HttpServletRequest request, Jdbc Jbean, HttpServletResponse response) throws ServletException, IOException, SQLException {
-         
-        String nextJSP = "/docs/paymentError.jsp";
-        Member memb = new Member();
-        String username = (String) request.getSession().getAttribute("username");
-        String userBalance = (String) request.getAttribute("balance");
+
+        String nextJSP = "/docs/paymentError.jsp"; // set next page
+        Member memb = new Member(); //calls member modelS
+        String username = (String) request.getSession().getAttribute("username"); // calls the username from the session
         String balancee = "";
         int balance = 0;
 
-        for (int i = 0; i < memb.getMembersSize(); i++) {
-            username = memb.getId(i);
-            if (username.equals(username)) {
-                balancee = memb.getBalance(i);
-                balance = Integer.parseInt(memb.getBalance(i));
+        for (int i = 0; i < memb.getMembersSize(); i++) { //iterates through members database
+            String user = memb.getId(i); 
+            if (username.equals(user)) { //if username matches current year
+                balancee = memb.getBalance(i); //gets the users balance
+                balance = Integer.parseInt(memb.getBalance(i)); // converts it to int
             }
         }
 
-        String amountt = request.getParameter("amount");
-        int amount = Integer.parseInt(amountt);
+        String amountt = request.getParameter("amount"); //requests parameter amount from jsp form
+        int amount = Integer.parseInt(amountt); // converts it to int
 
-        balance = balance - amount;
+        balance = balance - amount; // subtract amount paid from balance
 
-        if(balance < 0){
-        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextJSP);
-        dispatcher.forward(request, response);
+        if (balance < 0) { // makes sure the balance will not drop below 0
+
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextJSP); // creates dispatcher to redirect to next page
+            dispatcher.forward(request, response); // forwards request
         } else {
-        Jbean.executeSQLUpdate("UPDATE members SET balance = '" + balance + "' WHERE ID = '" + username + "'");
-        nextJSP = "/docs/mainMember.jsp";
-        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextJSP);
-        dispatcher.forward(request, response);
+            Jbean.executeSQLUpdate("UPDATE members SET balance = '" + balance + "' WHERE ID = '" + username + "'"); // updates sql database with results
+            
+            Payment pay = new Payment();
+           // Jbean.executeSQLUpdate("INSERT payments SET balance = '" + balance + "' WHERE ID = '" + username + "'"); // updates sql database with results
+            nextJSP = "/docs/mainMember.jsp";
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextJSP);
+            dispatcher.forward(request, response);
         }
-        
-        
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

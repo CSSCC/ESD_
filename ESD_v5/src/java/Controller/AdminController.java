@@ -37,54 +37,51 @@ public class AdminController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
-        
+
         Jdbc Jbean = new Jdbc();
         String id = request.getRequestURI().substring(request.getContextPath().length());
         response.setContentType("text/html;charset=UTF-8");
         String pathTrace = request.getHeader("referer");
-        
-        if (pathTrace.equals("http://localhost:8084/ESD_v5/docs/listProvApps")) {     
+
+        if (pathTrace.equals("http://localhost:8084/ESD_v5/docs/listProvApps")) {
             updateMembership(request, Jbean, response);
-        }
-        else if(pathTrace.equals("http://localhost:8084/ESD_v5/docs/listClaims")){
+        } else if (pathTrace.equals("http://localhost:8084/ESD_v5/docs/listClaims")) {
             updateClaimStatus(request, Jbean, response);
-        }
-        else if(pathTrace.equals("http://localhost:8084/ESD_v5/docs/calculateAnnualCharge")){
+        } else if (pathTrace.equals("http://localhost:8084/ESD_v5/docs/calculateAnnualCharge")) {
             calcAnnualFee(request, Jbean, response);
         }
     }
 
     public void updateMembership(HttpServletRequest request, Jdbc Jbean, HttpServletResponse response) throws ServletException, IOException, SQLException {
-         
+
         String nextJSP = "/docs/listProvApps.jsp";
         String mem_id = request.getParameter("mem_id");
-       
+
         Jbean.executeSQLUpdate("UPDATE members SET status = 'APPROVED' WHERE ID = '" + mem_id + "'");
 
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextJSP);
         dispatcher.forward(request, response);
-        }
-        
+    }
+
     public void updateClaimStatus(HttpServletRequest request, Jdbc Jbean, HttpServletResponse response) throws ServletException, IOException, SQLException {
-         
+
         String nextJSP = "/docs/listClaims.jsp";
         String id = request.getParameter("id");
         String status = request.getParameter("status");
-        
-        Jbean.executeSQLUpdate("UPDATE claims SET status = '"+ status +"' WHERE ID = '" + id + "'");
+
+        Jbean.executeSQLUpdate("UPDATE claims SET status = '" + status + "' WHERE ID = '" + id + "'");
 
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextJSP);
         dispatcher.forward(request, response);
-        }       
-          
-    
-    public void calcAnnualFee (HttpServletRequest request, Jdbc Jbean, HttpServletResponse response) throws SQLException, IOException, ServletException {
-        
+    }
+
+    public void calcAnnualFee(HttpServletRequest request, Jdbc Jbean, HttpServletResponse response) throws SQLException, IOException, ServletException {
+
         ArrayList<String> memberIDs;
         int memberTotal;
         ArrayList<String> claimIDs;
         int claimTotal;
-        int amountTotal = 0;  
+        int amountTotal = 0;
         memberIDs = Jdbc.runQuery("SELECT * FROM members", "id");
         memberTotal = memberIDs.size();
         claimIDs = Jdbc.runQuery("SELECT * FROM claims", "id");
@@ -97,29 +94,33 @@ public class AdminController extends HttpServlet {
         int balance = 0;
         String year = request.getParameter("year");
         String nextJSP = "/docs/mainAdmin.jsp";
-        
-        for (int i=0; i<claimTotal; i++) {
-            temp = claim.getDate(i).split("-") ;
-            
-            if(temp[0].equals(year)){
-                amountTotal = amountTotal + Integer.parseInt(claim.getAmount(i));
+
+        // Adds the claim totals
+        for (int i = 0; i < claimTotal; i++) {
+            temp = claim.getDate(i).split("-");
+            if ("APPROVED".equals(claim.getStatus(i))) {
+                if (temp[0].equals(year)) {
+                    amountTotal = amountTotal + Integer.parseInt(claim.getAmount(i));
+                }
             }
-        }           
-        
-        
-        int charge = amountTotal / memberTotal; 
-        
-        for (int i = 0; i < memberTotal; i++) {
+        }
+
+        int charge = amountTotal / memberTotal;
+        //OUTPUT
+        for (int i = 0; i < memb.getMembersSize(); i++) {
+           // if ("APPROVED".equals(memb.getStatus(i))) {
                 balance = 0;
                 balancee = memb.getBalance(i);
-                balance = Integer.parseInt(memb.getBalance(i));
+                balance = Integer.parseInt(balancee);
                 balance = balance + charge;
-                Jbean.executeSQLUpdate("UPDATE members SET balance = '"+ balance +"' WHERE ID = '" + memb.getId(i) + "'");
+                Jbean.executeSQLUpdate("UPDATE members SET balance = '"+ balance +"' WHERE ID = '" + memb.getId(i) + "'");            //}
+      //  }
         }
+        
         
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextJSP);
         dispatcher.forward(request, response);
-        
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
