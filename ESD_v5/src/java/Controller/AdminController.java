@@ -11,7 +11,9 @@ import Models.Member;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -50,6 +52,9 @@ public class AdminController extends HttpServlet {
         } else if (pathTrace.equals("http://localhost:8084/ESD_v5/docs/calculateAnnualCharge")) {
             calcAnnualFee(request, Jbean, response);
         }
+         else if (pathTrace.equals("http://localhost:8084/ESD_v5/docs/chargeSubFee")) {
+            chargeAnnualSubscriptionFee(request, Jbean, response);
+        }
     }
 
     public void updateMembership(HttpServletRequest request, Jdbc Jbean, HttpServletResponse response) throws ServletException, IOException, SQLException {
@@ -59,8 +64,8 @@ public class AdminController extends HttpServlet {
 
         Jbean.executeSQLUpdate("UPDATE members SET status = 'APPROVED' WHERE ID = '" + mem_id + "'");
 
-        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextJSP);
-        dispatcher.forward(request, response);
+        String direct = "http://localhost:8084/ESD_v5/docs/changesMade";
+        response.sendRedirect(direct);
     }
 
     public void updateClaimStatus(HttpServletRequest request, Jdbc Jbean, HttpServletResponse response) throws ServletException, IOException, SQLException {
@@ -71,8 +76,8 @@ public class AdminController extends HttpServlet {
 
         Jbean.executeSQLUpdate("UPDATE claims SET status = '" + status + "' WHERE ID = '" + id + "'");
 
-        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextJSP);
-        dispatcher.forward(request, response);
+        String direct = "http://localhost:8084/ESD_v5/docs/changesMade";
+        response.sendRedirect(direct);
     }
 
     public void calcAnnualFee(HttpServletRequest request, Jdbc Jbean, HttpServletResponse response) throws SQLException, IOException, ServletException {
@@ -108,37 +113,65 @@ public class AdminController extends HttpServlet {
         int charge = amountTotal / memberTotal;
         //OUTPUT
         for (int i = 0; i < memb.getMembersSize(); i++) {
-           // if ("APPROVED".equals(memb.getStatus(i))) {
-                balance = 0;
-                balancee = memb.getBalance(i);
-                balance = Integer.parseInt(balancee);
-                balance = balance + charge;
-                Jbean.executeSQLUpdate("UPDATE members SET balance = '"+ balance +"' WHERE ID = '" + memb.getId(i) + "'");            //}
-      //  }
+            // if ("APPROVED".equals(memb.getStatus(i))) {
+            balance = 0;
+            balancee = memb.getBalance(i);
+            balance = Integer.parseInt(balancee);
+            balance = balance + charge;
+            Jbean.executeSQLUpdate("UPDATE members SET balance = '" + balance + "' WHERE ID = '" + memb.getId(i) + "'");            //}
+            //  }
         }
-        
-        
-        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextJSP);
-        dispatcher.forward(request, response);
+
+        String direct = "http://localhost:8084/ESD_v5/docs/changesMade";
+        response.sendRedirect(direct);
 
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    public void chargeAnnualSubscriptionFee(HttpServletRequest request, Jdbc Jbean, HttpServletResponse response) throws SQLException, IOException, ServletException {
+
+        Member memb = new Member();
+        String[] temp1 = new String[3];
+        String[] temp2 = new String[3];
+        String dor = "";
+        String todaysDate = new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime());;
+
+        for (int i = 0; i < memb.getMembersSize(); i++) {
+            dor = memb.getDor(i);
+            temp1 = dor.split("-");
+            temp2 = todaysDate.split("-");
+
+            if (temp1[2].equals(temp2[2])) {
+                if (temp1[1].equals(temp2[1])) {
+                    
+                    String balancee = memb.getBalance(i);
+                    int balance = Integer.parseInt(balancee);
+                    balance = balance + 5;
+                    Jbean.executeSQLUpdate("UPDATE members SET balance = '" + balance + "' WHERE ID = '" + memb.getId(i) + "'");   
+                }
+            }
+        }
+        String direct = "http://localhost:8084/ESD_v5/docs/changesMade";
+        response.sendRedirect(direct);
+    }
+// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+/**
+ * Handles the HTTP <code>GET</code> method.
+ *
+ * @param request servlet request
+ * @param response servlet response
+ * @throws ServletException if a servlet-specific error occurs
+ * @throws IOException if an I/O error occurs
+ */
+@Override
+        protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
             processRequest(request, response);
-        } catch (SQLException ex) {
-            Logger.getLogger(AdminController.class.getName()).log(Level.SEVERE, null, ex);
+        
+
+} catch (SQLException ex) {
+            Logger.getLogger(AdminController.class
+.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -151,12 +184,15 @@ public class AdminController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+        protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
             processRequest(request, response);
-        } catch (SQLException ex) {
-            Logger.getLogger(AdminController.class.getName()).log(Level.SEVERE, null, ex);
+        
+
+} catch (SQLException ex) {
+            Logger.getLogger(AdminController.class
+.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -166,7 +202,7 @@ public class AdminController extends HttpServlet {
      * @return a String containing servlet description
      */
     @Override
-    public String getServletInfo() {
+        public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
 

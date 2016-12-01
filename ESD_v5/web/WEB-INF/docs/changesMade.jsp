@@ -12,6 +12,6 @@
         <title>XYZ Assoc</title>
     </head>
     <body>
-        <h1>You are now Registered!</h1>
+        <h1>Changes Made</h1>
     </body>
 </html>

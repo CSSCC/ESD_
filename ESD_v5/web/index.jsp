@@ -14,6 +14,7 @@
         
         <h1>XYZ Assoc</h1>
 
+        <br>
         <form action ="checkLoginDetails.jsp" method="post">
             <h3>Welcome, please log in.</h3>
             Username:<input type="text" name="username"/>

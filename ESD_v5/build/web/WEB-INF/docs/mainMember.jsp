@@ -33,7 +33,7 @@
             
             
                 
-            <jsp:include page="${doco}" flush="true"/>
+            <jsp:include page="${pagee}" flush="true"/>
         </div>
     </body>
 </html>

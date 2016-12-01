@@ -45,7 +45,6 @@ public class MemberController extends HttpServlet {
 
     public void updatePayment(HttpServletRequest request, Jdbc Jbean, HttpServletResponse response) throws ServletException, IOException, SQLException {
 
-        String nextJSP = "/docs/paymentError.jsp"; // set next page
         Member memb = new Member(); //calls member modelS
         String username = (String) request.getSession().getAttribute("username"); // calls the username from the session
         String balancee = "";
@@ -66,8 +65,8 @@ public class MemberController extends HttpServlet {
 
         if (balance < 0) { // makes sure the balance will not drop below 0
 
-            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextJSP); // creates dispatcher to redirect to next page
-            dispatcher.forward(request, response); // forwards request
+            String direct = "http://localhost:8084/ESD_v5/docs/paymentError";
+            response.sendRedirect(direct);
         } else {
             Jbean.executeSQLUpdate("UPDATE members SET balance = '" + balance + "' WHERE ID = '" + username + "'"); // updates sql database with results
 
@@ -85,12 +84,11 @@ public class MemberController extends HttpServlet {
                 }
             }
             payId++;
-            
-            Jbean.executeSQLUpdate("INSERT INTO payments (id, mem_id, type_of_payment, amount, date) VALUES ('"+payId+"', '"+username+"', 'FEE', '"+amount+"', '2016-01-05 15:13:43')"); // updates sql database with results
-             
-            nextJSP = "/docs/mainMember.jsp";
-            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextJSP);
-            dispatcher.forward(request, response);
+
+            Jbean.executeSQLUpdate("INSERT INTO payments (id, mem_id, type_of_payment, amount, date) VALUES ('" + payId + "', '" + username + "', 'FEE', '" + amount + "', '2016-01-05 15:13:43')"); // updates sql database with results
+
+            String direct = "http://localhost:8084/ESD_v5/docs/paymentSuccessful";
+            response.sendRedirect(direct);
         }
 
     }
@@ -109,8 +107,10 @@ public class MemberController extends HttpServlet {
             throws ServletException, IOException {
         try {
             processRequest(request, response);
+
         } catch (SQLException ex) {
-            Logger.getLogger(MemberController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MemberController.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -127,8 +127,10 @@ public class MemberController extends HttpServlet {
             throws ServletException, IOException {
         try {
             processRequest(request, response);
+
         } catch (SQLException ex) {
-            Logger.getLogger(MemberController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MemberController.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
     }
 

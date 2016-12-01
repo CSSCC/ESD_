@@ -9,11 +9,11 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Payment Error</title>
     </head>
     <body>
-        You cant over pay you ding dong
         <br>
-        <a href="<%=request.getContextPath()%>/docs/index">Go Home</a><br>
+        You cannot overpay
+        <br>
     </body>
 </html>

@@ -1,6 +1,6 @@
 <%-- 
-    Document   : register
-    Created on : 27-Nov-2016, 19:34:05
+    Document   : paymentSuccessful
+    Created on : 01-Dec-2016, 02:41:42
     Author     : ra7-lewis
 --%>
 
@@ -9,9 +9,9 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>XYZ Assoc</title>
     </head>
     <body>
-        <h1>Welcome to Register!</h1>
+        <h1>Claim Submitted</h1>
     </body>
 </html>

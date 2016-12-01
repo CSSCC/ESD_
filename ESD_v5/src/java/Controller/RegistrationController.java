@@ -49,7 +49,7 @@ public class RegistrationController extends HttpServlet {
         String dor = new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime());
         String status = "APPLIED";
         String balance = "10";
-        
+
         //****************MAKING USERNAME*******************
         //Initialising
         char firstChar;

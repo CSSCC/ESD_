@@ -104,13 +104,32 @@ public class FrontController extends HttpServlet {
                 include = "listPaymentsMade.jsp";
             break;
             
+            case "/docs/registrationSuccessful":
+                include = "registrationSuccessful.jsp";
+            break;
+            
+            case "/docs/paymentSuccessful":
+                include = "paymentSuccessful.jsp";
+            break;
+                        
             case "/docs/calculateAnnualCharge":
                 include = "calculateAnnualCharge.jsp";
             break;
+            
+            case "/docs/changesMade":
+                include = "changesMade.jsp";
+            break;
+            
+            case "/docs/claimSubmitted":
+                include = "claimSubmitted.jsp";
+            break;
+            
+            case "/docs/chargeSubFee":
+                include = "chargeSubFee.jsp";
+            break;
         }
 
-        getServletContext().log("Front received a request for " + id);
-        request.setAttribute("doco", include);
+        request.setAttribute("pagee", include);
         request.setAttribute("user", username);
         request.getRequestDispatcher(page).forward(request, response);
 
